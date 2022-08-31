@@ -61,3 +61,5 @@ D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\refint\Movies.API.dll
 D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\Movies.API.pdb
 D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\Movies.API.genruntimeconfig.cache
 D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\ref\Movies.API.dll
+D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\Movies.Infrastructure.dll
+D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\Movies.Infrastructure.pdb

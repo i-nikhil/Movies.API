@@ -8,7 +8,7 @@
         public int RuntimeMinutes { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public DateTime DeletedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
         public ICollection<MovieGenreMapping> Genres { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.Domain.Entities;
+using Movies.Domain.Entities.Seeding;
 using System.Reflection;
 
 namespace Movies.Infrastructure
@@ -19,6 +20,7 @@ namespace Movies.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            DataSeeding.Seed(modelBuilder);
         }
 
         public DbSet<Movie> Movies { get; set; }
