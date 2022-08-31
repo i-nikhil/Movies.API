@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Movies.Domain;
+using Movies.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 

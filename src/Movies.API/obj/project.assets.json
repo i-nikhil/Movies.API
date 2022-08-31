@@ -883,6 +883,21 @@
         "runtime": {
           "bin/placeholder/Movies.Domain.dll": {}
         }
+      },
+      "Movies.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8",
+          "Movies.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Movies.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Movies.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -2234,6 +2249,11 @@
       "type": "project",
       "path": "../Movies.Domain/Movies.Domain.csproj",
       "msbuildProject": "../Movies.Domain/Movies.Domain.csproj"
+    },
+    "Movies.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../Movies.Infrastructure/Movies.Infrastructure.csproj",
+      "msbuildProject": "../Movies.Infrastructure/Movies.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2241,7 +2261,7 @@
       "Microsoft.EntityFrameworkCore >= 6.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.8",
-      "Movies.Domain >= 1.0.0",
+      "Movies.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -2273,8 +2293,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj": {
-              "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj"
+            "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj": {
+              "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj"
             }
           }
         }

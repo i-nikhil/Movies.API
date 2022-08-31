@@ -2,7 +2,7 @@
 using Movies.Domain.Entities;
 using System.Reflection;
 
-namespace Movies.Domain
+namespace Movies.Infrastructure
 {
     public class ApplicationDbContext : DbContext
     {
