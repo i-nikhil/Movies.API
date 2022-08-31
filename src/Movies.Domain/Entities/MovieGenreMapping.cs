@@ -1,6 +1,6 @@
 ﻿namespace Movies.Domain.Entities
 {
-    public class MovieGenreMappings
+    public class MovieGenreMapping
     {
         public int Id { get; set; }
         public int MovieId { get; set; }

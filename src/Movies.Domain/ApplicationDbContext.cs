@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Movies.Domain.Entities;
 using System.Reflection;
 
 namespace Movies.Domain
@@ -19,5 +20,9 @@ namespace Movies.Domain
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
+
+        public DbSet<Movie> Movies { get; set; }
+        public DbSet<Genre> Genres { get; set; }
+        public DbSet<MovieGenreMapping> MovieGenreMappings { get; set; }
     }
 }
