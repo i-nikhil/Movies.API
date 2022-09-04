@@ -7906,9 +7906,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.Tests.csproj",
-      "projectName": "Movies.Tests",
-      "projectPath": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.Tests.csproj",
+      "projectUniqueName": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.UnitTest.csproj",
+      "projectName": "Movies.UnitTest",
+      "projectPath": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.UnitTest.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
       "outputPath": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\obj\\",
       "projectStyle": "PackageReference",

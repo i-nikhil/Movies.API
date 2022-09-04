@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "34FmHptQtTonOgjH/FsovN77AHWt7H+2hxlS6e7MG4S4lDiIkopL+rvc+1ODXXzc6SDlV1UFhh/rUweKTS71XA==",
+  "dgSpecHash": "m/78w+p0UmJUfX1r3RZ/gZM/q21L+jSQmv7OEYG7FX2N2Zp5gIVcYm/Hh/W63DdHTArUt+/zeAQy2D4xN/qL9Q==",
   "success": true,
-  "projectFilePath": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.Tests.csproj",
+  "projectFilePath": "D:\\dev\\csc\\Movies\\tests\\Movies.Tests\\Movies.UnitTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

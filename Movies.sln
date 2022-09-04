@@ -1,29 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C4248174-B9B0-4EC2-B2BA-47F3B58BF30A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.API", "src\Movies.API\Movies.API.csproj", "{764CE53F-DACE-4B8A-87A4-ACE3E4AF9D82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.API", "src\Movies.API\Movies.API.csproj", "{764CE53F-DACE-4B8A-87A4-ACE3E4AF9D82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Application", "src\Movies.Application\Movies.Application.csproj", "{20872D4F-2994-451D-A915-45C4E3B0272C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Application", "src\Movies.Application\Movies.Application.csproj", "{20872D4F-2994-451D-A915-45C4E3B0272C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Domain", "src\Movies.Domain\Movies.Domain.csproj", "{A457093D-C48F-4A85-B595-10E730E4DA62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Domain", "src\Movies.Domain\Movies.Domain.csproj", "{A457093D-C48F-4A85-B595-10E730E4DA62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Infrastructure", "src\Movies.Infrastructure\Movies.Infrastructure.csproj", "{E49BB041-6374-4E68-ABFE-2D919C496373}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.Infrastructure", "src\Movies.Infrastructure\Movies.Infrastructure.csproj", "{E49BB041-6374-4E68-ABFE-2D919C496373}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5116E2C8-9773-4D5A-9C5C-5850248CC126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Movies.Tests", "tests\Movies.Tests\Movies.Tests.csproj", "{7C89A0B4-DE8E-4202-B26F-6343E3807E95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Movies.UnitTest", "tests\Movies.Tests\Movies.UnitTest.csproj", "{7C89A0B4-DE8E-4202-B26F-6343E3807E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{764CE53F-DACE-4B8A-87A4-ACE3E4AF9D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -47,11 +44,17 @@ Global
 		{7C89A0B4-DE8E-4202-B26F-6343E3807E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C89A0B4-DE8E-4202-B26F-6343E3807E95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{764CE53F-DACE-4B8A-87A4-ACE3E4AF9D82} = {C4248174-B9B0-4EC2-B2BA-47F3B58BF30A}
 		{20872D4F-2994-451D-A915-45C4E3B0272C} = {C4248174-B9B0-4EC2-B2BA-47F3B58BF30A}
 		{A457093D-C48F-4A85-B595-10E730E4DA62} = {C4248174-B9B0-4EC2-B2BA-47F3B58BF30A}
 		{E49BB041-6374-4E68-ABFE-2D919C496373} = {C4248174-B9B0-4EC2-B2BA-47F3B58BF30A}
 		{7C89A0B4-DE8E-4202-B26F-6343E3807E95} = {5116E2C8-9773-4D5A-9C5C-5850248CC126}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13A7BE1A-7B5D-4240-85A7-F3B4017C3BCF}
 	EndGlobalSection
 EndGlobal
