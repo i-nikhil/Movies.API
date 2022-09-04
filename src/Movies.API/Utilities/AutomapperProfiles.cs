@@ -9,6 +9,10 @@ namespace Movies.API.Utilities
         public AutomapperProfiles()
         {
             CreateMap<Genre, GenreResponseDto>();
+
+            CreateMap<Movie, MovieResponseDto>();
+            //CreateMap<MovieGenreMapping, MovieGenreDto>();
+            //CreateMap<Genre, MovieGenreDto>();
         }
     }
 }
