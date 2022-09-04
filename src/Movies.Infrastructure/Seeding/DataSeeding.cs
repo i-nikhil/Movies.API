@@ -98,6 +98,15 @@ namespace Movies.Infrastructure.Seeding
                 DeletedAt = null
             };
 
+            Genre retro = new()
+            {
+                Id = 5,
+                Name = GenreName.Retro,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now,
+                DeletedAt = DateTime.Now
+            };
+
             MovieGenreMapping m1 = new()
             {
                 Id = 1,
@@ -169,7 +178,7 @@ namespace Movies.Infrastructure.Seeding
             };
 
             modelBuilder.Entity<Movie>().HasData(avengers, piratesOfTheCaribbean, noWayHome, theMatrixResurrections, theConjuring);
-            modelBuilder.Entity<Genre>().HasData(comedy, drama, thriller, horror);
+            modelBuilder.Entity<Genre>().HasData(comedy, drama, thriller, horror, retro);
             modelBuilder.Entity<MovieGenreMapping>().HasData(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10);
         }
     }

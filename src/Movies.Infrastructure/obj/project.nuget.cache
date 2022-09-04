@@ -1,11 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "mVdskpOFPoCl+tS6gOGLSHxT7C/7pB5+dLlJ1W2l2cjASPmE9t8KRrt/iX1wkFStRtYXPEDdSJqivLViWT+4+w==",
+  "dgSpecHash": "h0JSJjikICJ9QJznN28FyyitHll1sAimIZx4CgDh34WJYJRtx8Y9lLE0iJRFQuCItb3avPTNf1jLGWHYRWlDpw==",
   "success": true,
   "projectFilePath": "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Lenovo\\.nuget\\packages\\automapper\\11.0.0\\automapper.11.0.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\11.0.0\\automapper.extensions.microsoft.dependencyinjection.11.0.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.data.sqlclient\\2.1.4\\microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.1.1\\microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\microsoft.entityframeworkcore\\6.0.8\\microsoft.entityframeworkcore.6.0.8.nupkg.sha512",

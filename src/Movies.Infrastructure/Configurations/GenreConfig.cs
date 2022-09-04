@@ -9,6 +9,7 @@ namespace Movies.Infrastructure.Configurations
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
             builder.Property(p => p.Name).IsRequired().HasConversion<String>();
+            builder.HasIndex(p => p.Name).IsUnique().HasFilter("DeletedAt IS NULL");
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Movies.Domain.Entities;
+using Movies.Domain.DTOs;
 using Movies.Infrastructure;
 
 namespace Movies.API.Controllers
@@ -10,27 +12,34 @@ namespace Movies.API.Controllers
     public class GenresController : ControllerBase
     {
         private readonly ApplicationDbContext context;
-        public GenresController(ApplicationDbContext context)
+        private readonly IMapper mapper;
+        public GenresController(ApplicationDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Genre>> GetAllGenre()
+        public async Task<IEnumerable<GenreResponseDto>> GetAllGenre()
         {
-            return await context.Genres.ToListAsync();
+            return await context.Genres
+                .ProjectTo<GenreResponseDto>(mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult> GetGenreById(int id)
         {
-            Genre genres = await context.Genres.FirstOrDefaultAsync(g => g.Id == id);
+            GenreResponseDto genre = await context.Genres
+                .ProjectTo<GenreResponseDto>(mapper.ConfigurationProvider)
+                .FirstOrDefaultAsync(g => g.Id == id);
 
-            if (genres is null)
+            if (genre is null)
             {
                 return NotFound($"The genre with id {id} does not exist!");
             }
-            return Ok(genres);
+
+            return Ok(genre);
         }
     }
 }

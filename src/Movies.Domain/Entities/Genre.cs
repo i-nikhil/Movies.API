@@ -15,6 +15,7 @@
         Comedy = 0,
         Drama,
         Thriller,
-        Horror
+        Horror,
+        Retro
     }
 }

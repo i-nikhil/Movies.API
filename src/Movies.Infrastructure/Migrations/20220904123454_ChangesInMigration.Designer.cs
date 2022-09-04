@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Movies.Infrastructure;
 
@@ -11,9 +12,10 @@ using Movies.Infrastructure;
 namespace Movies.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220904123454_ChangesInMigration")]
+    partial class ChangesInMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,16 +40,12 @@ namespace Movies.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("date");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("DeletedAt IS NULL");
 
                     b.ToTable("Genres");
 
@@ -55,38 +53,30 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3753),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local),
                             Name = "Comedy",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3754)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(1)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3757),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(2),
                             Name = "Drama",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3758)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(2)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3760),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(3),
                             Name = "Thriller",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3761)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(4)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3762),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(5),
                             Name = "Horror",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3763)
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3766),
-                            DeletedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3768),
-                            Name = "Retro",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3767)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 845, DateTimeKind.Local).AddTicks(5)
                         });
                 });
 
@@ -125,47 +115,47 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3700),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9982),
                             ReleaseYear = 2012,
                             RuntimeMinutes = 143,
                             Title = "Avengers",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3736)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9992)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3740),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9994),
                             ReleaseYear = 2003,
                             RuntimeMinutes = 143,
                             Title = "Pirates of the Caribbean",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3741)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9995)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3744),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9996),
                             ReleaseYear = 2022,
                             RuntimeMinutes = 148,
                             Title = "Spider-Man: No way home",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3745)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9996)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3747),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9997),
                             ReleaseYear = 2021,
                             RuntimeMinutes = 148,
                             Title = "The Matrix Resurrections",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3748)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9998)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3749),
+                            CreatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9998),
                             ReleaseYear = 2013,
                             RuntimeMinutes = 112,
                             Title = "The Conjuring",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3750)
+                            UpdatedAt = new DateTime(2022, 9, 4, 18, 4, 53, 844, DateTimeKind.Local).AddTicks(9999)
                         });
                 });
 

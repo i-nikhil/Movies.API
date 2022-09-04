@@ -63,3 +63,5 @@ D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\Movies.API.genruntimeconfig.ca
 D:\dev\csc\Movies\src\Movies.API\obj\Debug\net6.0\ref\Movies.API.dll
 D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\Movies.Infrastructure.dll
 D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\Movies.Infrastructure.pdb
+D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\AutoMapper.dll
+D:\dev\csc\Movies\src\Movies.API\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

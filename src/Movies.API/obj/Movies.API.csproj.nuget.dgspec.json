@@ -29,6 +29,9 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj": {
+                "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj"
+              },
               "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj": {
                 "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj"
               }
@@ -45,6 +48,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.8, )"
@@ -124,6 +131,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[6.0.8, )"
