@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Movies.Domain.Entities;
 
-namespace Movies.Domain.Entities.Seeding
+namespace Movies.Infrastructure.Seeding
 {
     public static class DataSeeding
     {

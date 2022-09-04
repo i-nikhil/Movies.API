@@ -12,8 +12,8 @@ using Movies.Infrastructure;
 namespace Movies.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220831200835_DataSeeding")]
-    partial class DataSeeding
+    [Migration("20220904070406_RefactoredInfrastructure")]
+    partial class RefactoredInfrastructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -52,30 +52,30 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7004),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1831),
                             Name = 0,
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7005)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1832)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7006),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1833),
                             Name = 1,
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7007)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1834)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7007),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1834),
                             Name = 2,
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7008)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1835)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7009),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1836),
                             Name = 3,
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7009)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1836)
                         });
                 });
 
@@ -100,6 +100,7 @@ namespace Movies.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -113,132 +114,127 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(6983),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1774),
                             ReleaseYear = 2012,
                             RuntimeMinutes = 143,
                             Title = "Avengers",
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(6996)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1786)
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(6998),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1788),
                             ReleaseYear = 2003,
                             RuntimeMinutes = 143,
                             Title = "Pirates of the Caribbean",
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(6998)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1789)
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7000),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1790),
                             ReleaseYear = 2022,
                             RuntimeMinutes = 148,
                             Title = "Spider-Man: No way home",
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7000)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1790)
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7001),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1828),
                             ReleaseYear = 2021,
                             RuntimeMinutes = 148,
                             Title = "The Matrix Resurrections",
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7001)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1828)
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7002),
+                            CreatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1829),
                             ReleaseYear = 2013,
                             RuntimeMinutes = 112,
                             Title = "The Conjuring",
-                            UpdatedAt = new DateTime(2022, 9, 1, 1, 38, 35, 49, DateTimeKind.Local).AddTicks(7003)
+                            UpdatedAt = new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1830)
                         });
                 });
 
             modelBuilder.Entity("Movies.Domain.Entities.MovieGenreMapping", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("MovieId", "GenreId");
 
                     b.HasIndex("GenreId");
-
-                    b.HasIndex("MovieId");
 
                     b.ToTable("MovieGenreMappings");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            MovieId = 1,
                             GenreId = 2,
-                            MovieId = 1
+                            Id = 1
                         },
                         new
                         {
-                            Id = 2,
+                            MovieId = 1,
                             GenreId = 3,
-                            MovieId = 1
+                            Id = 2
                         },
                         new
                         {
-                            Id = 3,
+                            MovieId = 2,
                             GenreId = 1,
-                            MovieId = 2
+                            Id = 3
                         },
                         new
                         {
-                            Id = 4,
+                            MovieId = 2,
                             GenreId = 2,
-                            MovieId = 2
+                            Id = 4
                         },
                         new
                         {
-                            Id = 5,
+                            MovieId = 2,
                             GenreId = 3,
-                            MovieId = 2
+                            Id = 5
                         },
                         new
                         {
-                            Id = 6,
+                            MovieId = 3,
                             GenreId = 3,
-                            MovieId = 3
+                            Id = 6
                         },
                         new
                         {
-                            Id = 7,
+                            MovieId = 4,
                             GenreId = 2,
-                            MovieId = 4
+                            Id = 7
                         },
                         new
                         {
-                            Id = 8,
+                            MovieId = 4,
                             GenreId = 3,
-                            MovieId = 4
+                            Id = 8
                         },
                         new
                         {
-                            Id = 9,
+                            MovieId = 5,
                             GenreId = 3,
-                            MovieId = 5
+                            Id = 9
                         },
                         new
                         {
-                            Id = 10,
+                            MovieId = 5,
                             GenreId = 4,
-                            MovieId = 5
+                            Id = 10
                         });
                 });
 

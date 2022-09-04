@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Movies.Domain.Entities;
 
-namespace Movies.Domain.Entities.Configurations
+namespace Movies.Infrastructure.Configurations
 {
-    internal class GenreConfig : IEntityTypeConfiguration<Genre>
+    public class GenreConfig : IEntityTypeConfiguration<Genre>
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {

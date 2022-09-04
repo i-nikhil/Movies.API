@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.Domain.Entities;
-using Movies.Domain.Entities.Seeding;
+using Movies.Infrastructure.Seeding;
 using System.Reflection;
 
 namespace Movies.Infrastructure
