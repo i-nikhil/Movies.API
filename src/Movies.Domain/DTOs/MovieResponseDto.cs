@@ -1,13 +1,12 @@
 ﻿using Movies.Domain.Entities;
 
-namespace Movies.Domain.DTOs
+namespace Movies.Domain.DTOs;
+
+public class MovieResponseDto
 {
-    public class MovieResponseDto
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public int ReleaseYear { get; set; }
-        public int RuntimeMinutes { get; set; }
-        public ICollection<MovieGenreMapping> Genres { get; set; }
-    }
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public int ReleaseYear { get; set; }
+    public int RuntimeMinutes { get; set; }
+    public IEnumerable<GenreResponseDto> Genres { get; set; }
 }

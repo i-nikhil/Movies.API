@@ -10,9 +10,15 @@ namespace Movies.API.Utilities
         {
             CreateMap<Genre, GenreResponseDto>();
 
-            CreateMap<Movie, MovieResponseDto>();
-            //CreateMap<MovieGenreMapping, MovieGenreDto>();
-            //CreateMap<Genre, MovieGenreDto>();
+            CreateMap<Movie, MovieResponseDto>()
+                .ForMember(
+                dest => dest.Genres,
+                src => src.MapFrom(y => y.Genres.Select(z => new GenreResponseDto
+                {
+                    Id = z.GenreId,
+                    Name = z.Genre.Name.ToString()
+                }))
+                );
         }
     }
 }

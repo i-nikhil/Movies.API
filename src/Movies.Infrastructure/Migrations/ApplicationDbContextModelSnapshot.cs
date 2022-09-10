@@ -40,14 +40,14 @@ namespace Movies.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("date");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
-                        .HasFilter("DeletedAt IS NULL");
+                        .HasFilter("DeletedAt Is NULL");
 
                     b.ToTable("Genres");
 
@@ -55,38 +55,56 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3753),
-                            Name = "Comedy",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3754)
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9344),
+                            Name = "Comedy"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3757),
-                            Name = "Drama",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3758)
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9349),
+                            Name = "Drama"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3760),
-                            Name = "Thriller",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3761)
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9350),
+                            Name = "Thriller"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3762),
-                            Name = "Horror",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3763)
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9351),
+                            Name = "Horror"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3766),
-                            DeletedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3768),
-                            Name = "Retro",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3767)
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9352),
+                            Name = "Action"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9352),
+                            Name = "Retro"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9353),
+                            Name = "Crime"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9354),
+                            Name = "Biopic"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9354),
+                            Name = "Fiction"
                         });
                 });
 
@@ -114,7 +132,7 @@ namespace Movies.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("date");
 
                     b.HasKey("Id");
@@ -125,143 +143,183 @@ namespace Movies.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3700),
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9356),
                             ReleaseYear = 2012,
                             RuntimeMinutes = 143,
-                            Title = "Avengers",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3736)
+                            Title = "Avengers"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3740),
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9359),
                             ReleaseYear = 2003,
                             RuntimeMinutes = 143,
-                            Title = "Pirates of the Caribbean",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3741)
+                            Title = "Pirates of the Caribbean"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3744),
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9360),
                             ReleaseYear = 2022,
                             RuntimeMinutes = 148,
-                            Title = "Spider-Man: No way home",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3745)
+                            Title = "Spider-Man: No way home"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3747),
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9360),
                             ReleaseYear = 2021,
                             RuntimeMinutes = 148,
-                            Title = "The Matrix Resurrections",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3748)
+                            Title = "The Matrix Resurrections"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3749),
+                            CreatedAt = new DateTime(2022, 9, 10, 20, 26, 19, 633, DateTimeKind.Utc).AddTicks(9361),
                             ReleaseYear = 2013,
                             RuntimeMinutes = 112,
-                            Title = "The Conjuring",
-                            UpdatedAt = new DateTime(2022, 9, 4, 21, 5, 58, 912, DateTimeKind.Local).AddTicks(3750)
+                            Title = "The Conjuring"
                         });
                 });
 
             modelBuilder.Entity("Movies.Domain.Entities.MovieGenreMapping", b =>
                 {
-                    b.Property<int>("MovieId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("MovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("MovieId", "GenreId");
+                    b.HasKey("Id");
 
                     b.HasIndex("GenreId");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("MovieGenreMappings");
 
                     b.HasData(
                         new
                         {
-                            MovieId = 1,
+                            Id = 1,
                             GenreId = 2,
-                            Id = 1
+                            MovieId = 1
                         },
                         new
                         {
-                            MovieId = 1,
+                            Id = 2,
                             GenreId = 3,
-                            Id = 2
+                            MovieId = 1
                         },
                         new
                         {
-                            MovieId = 2,
+                            Id = 3,
                             GenreId = 1,
-                            Id = 3
+                            MovieId = 2
                         },
                         new
                         {
-                            MovieId = 2,
+                            Id = 4,
                             GenreId = 2,
-                            Id = 4
+                            MovieId = 2
                         },
                         new
                         {
-                            MovieId = 2,
+                            Id = 5,
+                            GenreId = 9,
+                            MovieId = 2
+                        },
+                        new
+                        {
+                            Id = 6,
                             GenreId = 3,
-                            Id = 5
+                            MovieId = 3
                         },
                         new
                         {
-                            MovieId = 3,
-                            GenreId = 3,
-                            Id = 6
-                        },
-                        new
-                        {
-                            MovieId = 4,
+                            Id = 7,
                             GenreId = 2,
-                            Id = 7
+                            MovieId = 4
                         },
                         new
                         {
-                            MovieId = 4,
+                            Id = 8,
                             GenreId = 3,
-                            Id = 8
+                            MovieId = 4
                         },
                         new
                         {
-                            MovieId = 5,
+                            Id = 9,
                             GenreId = 3,
-                            Id = 9
+                            MovieId = 5
                         },
                         new
                         {
-                            MovieId = 5,
+                            Id = 10,
                             GenreId = 4,
-                            Id = 10
+                            MovieId = 5
+                        },
+                        new
+                        {
+                            Id = 11,
+                            GenreId = 5,
+                            MovieId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            GenreId = 9,
+                            MovieId = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            GenreId = 9,
+                            MovieId = 4
+                        },
+                        new
+                        {
+                            Id = 14,
+                            GenreId = 5,
+                            MovieId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            GenreId = 9,
+                            MovieId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            GenreId = 5,
+                            MovieId = 4
                         });
                 });
 
             modelBuilder.Entity("Movies.Domain.Entities.MovieGenreMapping", b =>
                 {
-                    b.HasOne("Movies.Domain.Entities.Genre", null)
+                    b.HasOne("Movies.Domain.Entities.Genre", "Genre")
                         .WithMany("Movies")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Movies.Domain.Entities.Movie", null)
+                    b.HasOne("Movies.Domain.Entities.Movie", "Movie")
                         .WithMany("Genres")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Movies.Domain.Entities.Genre", b =>

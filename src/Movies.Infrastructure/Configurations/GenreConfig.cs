@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Movies.Domain.Entities;
 
-namespace Movies.Infrastructure.Configurations
+namespace Movies.Infrastructure.Configurations;
+
+public class GenreConfig : IEntityTypeConfiguration<Genre>
 {
-    public class GenreConfig : IEntityTypeConfiguration<Genre>
+    public void Configure(EntityTypeBuilder<Genre> builder)
     {
-        public void Configure(EntityTypeBuilder<Genre> builder)
-        {
-            builder.Property(p => p.Name).IsRequired().HasConversion<String>();
-            builder.HasIndex(p => p.Name).IsUnique().HasFilter("DeletedAt IS NULL");
-        }
+        builder.Property(p => p.Name).IsRequired().HasConversion<String>();
+
+        builder.HasIndex(p => p.Name).IsUnique().HasFilter("DeletedAt Is NULL");
     }
 }

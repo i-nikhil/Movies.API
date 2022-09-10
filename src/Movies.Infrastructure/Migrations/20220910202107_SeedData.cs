@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Movies.Infrastructure.Migrations
 {
-    public partial class RefactoredInfrastructure : Migration
+    public partial class SeedData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,9 +15,9 @@ namespace Movies.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "date", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "date", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "date", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "date", nullable: true)
                 },
                 constraints: table =>
@@ -35,7 +35,7 @@ namespace Movies.Infrastructure.Migrations
                     ReleaseYear = table.Column<int>(type: "int", nullable: false),
                     RuntimeMinutes = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "date", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "date", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "date", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "date", nullable: true)
                 },
                 constraints: table =>
@@ -47,13 +47,14 @@ namespace Movies.Infrastructure.Migrations
                 name: "MovieGenreMappings",
                 columns: table => new
                 {
-                    MovieId = table.Column<int>(type: "int", nullable: false),
-                    GenreId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovieGenreMappings", x => new { x.MovieId, x.GenreId });
+                    table.PrimaryKey("PK_MovieGenreMappings", x => x.Id);
                     table.ForeignKey(
                         name: "FK_MovieGenreMappings_Genres_GenreId",
                         column: x => x.GenreId,
@@ -73,10 +74,15 @@ namespace Movies.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "Name", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1831), null, 0, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1832) },
-                    { 2, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1833), null, 1, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1834) },
-                    { 3, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1834), null, 2, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1835) },
-                    { 4, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1836), null, 3, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1836) }
+                    { 1, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6986), null, "Comedy", null },
+                    { 2, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6989), null, "Drama", null },
+                    { 3, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6990), null, "Thriller", null },
+                    { 4, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6991), null, "Horror", null },
+                    { 5, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6992), null, "Action", null },
+                    { 6, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6992), null, "Retro", null },
+                    { 7, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6993), null, "Crime", null },
+                    { 8, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6994), null, "Biopic", null },
+                    { 9, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6994), null, "Fiction", null }
                 });
 
             migrationBuilder.InsertData(
@@ -84,34 +90,52 @@ namespace Movies.Infrastructure.Migrations
                 columns: new[] { "Id", "CreatedAt", "DeletedAt", "ReleaseYear", "RuntimeMinutes", "Title", "UpdatedAt" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1774), null, 2012, 143, "Avengers", new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1786) },
-                    { 2, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1788), null, 2003, 143, "Pirates of the Caribbean", new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1789) },
-                    { 3, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1790), null, 2022, 148, "Spider-Man: No way home", new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1790) },
-                    { 4, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1828), null, 2021, 148, "The Matrix Resurrections", new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1828) },
-                    { 5, new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1829), null, 2013, 112, "The Conjuring", new DateTime(2022, 9, 4, 12, 34, 6, 426, DateTimeKind.Local).AddTicks(1830) }
+                    { 1, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(6996), null, 2012, 143, "Avengers", null },
+                    { 2, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(7000), null, 2003, 143, "Pirates of the Caribbean", null },
+                    { 3, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(7001), null, 2022, 148, "Spider-Man: No way home", null },
+                    { 4, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(7001), null, 2021, 148, "The Matrix Resurrections", null },
+                    { 5, new DateTime(2022, 9, 10, 20, 21, 6, 847, DateTimeKind.Utc).AddTicks(7002), null, 2013, 112, "The Conjuring", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "MovieGenreMappings",
-                columns: new[] { "GenreId", "MovieId", "Id" },
+                columns: new[] { "Id", "GenreId", "MovieId" },
                 values: new object[,]
                 {
-                    { 2, 1, 1 },
+                    { 1, 2, 1 },
+                    { 2, 3, 1 },
                     { 3, 1, 2 },
-                    { 1, 2, 3 },
-                    { 2, 2, 4 },
-                    { 3, 2, 5 },
-                    { 3, 3, 6 },
-                    { 2, 4, 7 },
-                    { 3, 4, 8 },
-                    { 3, 5, 9 },
-                    { 4, 5, 10 }
+                    { 4, 2, 2 },
+                    { 5, 9, 2 },
+                    { 6, 3, 3 },
+                    { 7, 2, 4 },
+                    { 8, 3, 4 },
+                    { 9, 3, 5 },
+                    { 10, 4, 5 },
+                    { 11, 5, 1 },
+                    { 12, 9, 1 },
+                    { 13, 9, 1 },
+                    { 14, 5, 3 },
+                    { 15, 9, 3 },
+                    { 16, 5, 4 }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Genres_Name",
+                table: "Genres",
+                column: "Name",
+                unique: true,
+                filter: "DeletedAt Is NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MovieGenreMappings_GenreId",
                 table: "MovieGenreMappings",
                 column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MovieGenreMappings_MovieId",
+                table: "MovieGenreMappings",
+                column: "MovieId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
