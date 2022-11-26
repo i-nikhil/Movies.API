@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Movies.Domain.DTOs;
-using Movies.Domain.Entities;
-using Movies.Infrastructure;
-using System.Globalization;
+using Movies.API.DTOs;
+using Movies.API.Entities;
 
 namespace Movies.API.Controllers;
 

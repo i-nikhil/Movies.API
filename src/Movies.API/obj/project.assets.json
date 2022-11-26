@@ -31,6 +31,19 @@
           "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
+      "FluentValidation/11.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/FluentValidation.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -898,36 +911,6 @@
             "rid": "win"
           }
         }
-      },
-      "Movies.Domain/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "11.0.0",
-          "Microsoft.EntityFrameworkCore": "6.0.8",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8"
-        },
-        "compile": {
-          "bin/placeholder/Movies.Domain.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Movies.Domain.dll": {}
-        }
-      },
-      "Movies.Infrastructure/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "6.0.8",
-          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.8",
-          "Movies.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/Movies.Infrastructure.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Movies.Infrastructure.dll": {}
-        }
       }
     }
   },
@@ -959,6 +942,29 @@
         "automapper.extensions.microsoft.dependencyinjection.nuspec",
         "icon.png",
         "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll"
+      ]
+    },
+    "FluentValidation/11.4.0": {
+      "sha512": "WZJyrNf4suiaI6avVG32W9kmBLC3+V5rDTcLeRJjeU4tDmTyDIOz1459DzCKppXs34YpZg9rCUzDY3M4XxG7Ug==",
+      "type": "package",
+      "path": "fluentvalidation/11.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "fluent-validation-icon.png",
+        "fluentvalidation.11.4.0.nupkg.sha512",
+        "fluentvalidation.nuspec",
+        "lib/net5.0/FluentValidation.dll",
+        "lib/net5.0/FluentValidation.xml",
+        "lib/net6.0/FluentValidation.dll",
+        "lib/net6.0/FluentValidation.xml",
+        "lib/net7.0/FluentValidation.dll",
+        "lib/net7.0/FluentValidation.xml",
+        "lib/netstandard2.0/FluentValidation.dll",
+        "lib/netstandard2.0/FluentValidation.xml",
+        "lib/netstandard2.1/FluentValidation.dll",
+        "lib/netstandard2.1/FluentValidation.xml"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -2304,26 +2310,15 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Movies.Domain/1.0.0": {
-      "type": "project",
-      "path": "../Movies.Domain/Movies.Domain.csproj",
-      "msbuildProject": "../Movies.Domain/Movies.Domain.csproj"
-    },
-    "Movies.Infrastructure/1.0.0": {
-      "type": "project",
-      "path": "../Movies.Infrastructure/Movies.Infrastructure.csproj",
-      "msbuildProject": "../Movies.Infrastructure/Movies.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 11.0.0",
+      "FluentValidation >= 11.4.0",
       "Microsoft.EntityFrameworkCore >= 6.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.8",
-      "Movies.Domain >= 1.0.0",
-      "Movies.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -2354,14 +2349,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj": {
-              "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Domain\\Movies.Domain.csproj"
-            },
-            "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj": {
-              "projectPath": "D:\\dev\\csc\\Movies\\src\\Movies.Infrastructure\\Movies.Infrastructure.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -2377,6 +2365,10 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[11.0.0, )"
+          },
+          "FluentValidation": {
+            "target": "Package",
+            "version": "[11.4.0, )"
           },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",

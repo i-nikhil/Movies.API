@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Movies.Infrastructure;
-using Movies.Infrastructure.Seeding;
+using Movies.API;
 
 var builder = WebApplication.CreateBuilder(args);
 

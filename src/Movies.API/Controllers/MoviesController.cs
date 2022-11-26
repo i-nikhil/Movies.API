@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Movies.Domain.DTOs;
-using Movies.Domain.Entities;
-using Movies.Infrastructure;
+using Movies.API.DTOs;
+using Movies.API.Entities;
+using System.Linq;
 
 namespace Movies.API.Controllers;
 
@@ -26,7 +26,7 @@ public class MoviesController : ControllerBase
             .Where(g => g.DeletedAt == null)
             .Include(m => m.Genres) // Populating public ICollection<MovieGenreMapping> Genres { get; set; } (Populate the mapping)
             .ThenInclude(g => g.Genre) // public Genre Genre { get; set; } (Populate each item in mapping)
-            .OrderByDescending(m => EF.Property<DateTime>(m, "CreatedAt"))
+            .OrderByDescending(m => m.ReleaseYear)
             .ToListAsync();
 
         return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
@@ -59,11 +59,9 @@ public class MoviesController : ControllerBase
 
         List<Movie> matchingMovies = new();
 
-        foreach (var movie in movies)
-        {
-            if (movie.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase))
-                matchingMovies.Add(movie);
-        }
+        matchingMovies.AddRange(from movie in movies
+                                where movie.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase)
+                                select movie);
 
         if (matchingMovies.Count == 0)
         {
@@ -87,7 +85,6 @@ public class MoviesController : ControllerBase
     [HttpPost("Create")]
     public async Task<ActionResult> PostMovie(MovieRequestDto movieRequestDto)
     {
-
         Movie movie = new()
         {
             Title = movieRequestDto.Title,
