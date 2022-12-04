@@ -87,6 +87,15 @@ public static class DataSeeding
             DeletedAt = null
         };
 
+        Genre romance = new()
+        {
+            Id = 10,
+            Name = GenreName.Romance,
+            CreatedAt = DateTime.UtcNow,
+            UpdatedAt = null,
+            DeletedAt = null
+        };
+
         Movie avengers = new()
         {
             Id = 1,
@@ -254,7 +263,7 @@ public static class DataSeeding
             GenreId = 5
         };
 
-        modelBuilder.Entity<Genre>().HasData(comedy, drama, thriller, horror, action, retro, crime, biopic, fiction);
+        modelBuilder.Entity<Genre>().HasData(comedy, drama, thriller, horror, action, retro, crime, biopic, fiction, romance);
         modelBuilder.Entity<Movie>().HasData(avengers, piratesOfTheCaribbean, noWayHome, theMatrixResurrections, theConjuring);
         modelBuilder.Entity<MovieGenreMapping>().HasData(m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12, m13, m14, m15, m16);
     }

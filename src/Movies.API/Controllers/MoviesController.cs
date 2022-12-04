@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
-using System.Linq;
+using Movies.API.Services.Interfaces;
 
 namespace Movies.API.Controllers;
 
@@ -11,23 +10,18 @@ namespace Movies.API.Controllers;
 [Route("Movies")]
 public class MoviesController : ControllerBase
 {
-    private readonly ApplicationDbContext context;
+    private readonly IMoviesService movieService;
     private readonly IMapper mapper;
-    public MoviesController(ApplicationDbContext context, IMapper mapper)
+    public MoviesController(IMoviesService movieService, IMapper mapper)
     {
-        this.context = context;
+        this.movieService = movieService;
         this.mapper = mapper;
     }
 
     [HttpGet]
     public async Task<ActionResult> GetAllMovie()
     {
-        List<Movie> movies = await context.Movies
-            .Where(g => g.DeletedAt == null)
-            .Include(m => m.Genres) // Populating public ICollection<MovieGenreMapping> Genres { get; set; } (Populate the mapping)
-            .ThenInclude(g => g.Genre) // public Genre Genre { get; set; } (Populate each item in mapping)
-            .OrderByDescending(m => m.ReleaseYear)
-            .ToListAsync();
+        List<Movie> movies = await movieService.GetAllMovie();
 
         return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
     }
@@ -35,10 +29,7 @@ public class MoviesController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult> GetMovieById(int id)
     {
-        Movie movie = await context.Movies
-            .Include(m => m.Genres)
-            .ThenInclude(g => g.Genre)
-            .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt == null);
+        Movie movie = await movieService.GetMovieById(id);
 
         if (movie is null)
         {
@@ -51,24 +42,14 @@ public class MoviesController : ControllerBase
     [HttpGet("Search")]
     public async Task<ActionResult> SearchMovieByName(string term)
     {
-        List<Movie> movies = await context.Movies
-            .Where(m => m.DeletedAt == null)
-            .Include(m => m.Genres)
-            .ThenInclude(g => g.Genre)
-            .ToListAsync();
+        List<Movie> movies = await movieService.SearchMovieByName(term);   
 
-        List<Movie> matchingMovies = new();
-
-        matchingMovies.AddRange(from movie in movies
-                                where movie.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase)
-                                select movie);
-
-        if (matchingMovies.Count == 0)
+        if (movies.Count == 0)
         {
             return NotFound($"No matching movie found!");
         }
 
-        return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(matchingMovies));
+        return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
     }
 
     //[HttpGet("GroupByGenre")]
@@ -85,29 +66,8 @@ public class MoviesController : ControllerBase
     [HttpPost("Create")]
     public async Task<ActionResult> PostMovie(MovieRequestDto movieRequestDto)
     {
-        Movie movie = new()
-        {
-            Title = movieRequestDto.Title,
-            ReleaseYear = movieRequestDto.ReleaseYear,
-            RuntimeMinutes = movieRequestDto.RuntimeMinutes,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = null,
-            DeletedAt = null
-        };
-        context.Add(movie);
+        await movieService.PostMovie(movieRequestDto);
 
-        foreach (int gid in movieRequestDto.GenreIds)
-        {
-            context.MovieGenreMappings.Add(new MovieGenreMapping
-            {
-                Movie = movie,
-                MovieId = movie.Id,
-                Genre = await context.Genres.FirstOrDefaultAsync(g => g.Id == movie.Id && g.DeletedAt == null),
-                GenreId = gid
-            });
-        }
-
-        await context.SaveChangesAsync();
         return Ok();
     }
 
@@ -146,46 +106,26 @@ public class MoviesController : ControllerBase
     [HttpDelete("Delete/{id:int}")]
     public async Task<ActionResult> DeleteMovieById(int id)
     {
-        Movie movie = await context.Movies
-            .FirstOrDefaultAsync(g => g.Id == id);
+        Movie movie = await movieService.DeleteMovieById(id);
 
         if (movie is null)
         {
             return NotFound($"The movie with id {id} does not exist!");
         }
 
-        if (movie.DeletedAt is not null)
-        {
-            return NotFound($"The movie with id {id} is already deleted at {movie.DeletedAt}!");
-        }
-
-        movie.DeletedAt = DateTime.UtcNow;
-        movie.UpdatedAt = DateTime.UtcNow;
-        await context.SaveChangesAsync();
-
-        return Ok();
+        return Ok($"Successfully deleted movie with id {id}!");
     }
 
     [HttpPut("Restore/{id:int}")]
     public async Task<ActionResult> RestoreMovieById(int id)
     {
-        Movie movie = await context.Movies
-            .FirstOrDefaultAsync(g => g.Id == id);
+        Movie movie = await movieService.RestoreMovieById(id);
 
         if (movie is null)
-        {
-            return NotFound($"The movie with id {id} does not exist!");
-        }
-
-        if (movie.DeletedAt is null)
         {
             return NotFound($"The movie with id {id} is not deleted!");
         }
 
-        movie.DeletedAt = null;
-        movie.UpdatedAt = DateTime.UtcNow;
-        await context.SaveChangesAsync();
-
-        return Ok();
+        return Ok($"Successfully restored movie with id {id}!");
     }
 }

@@ -20,5 +20,6 @@ public enum GenreName
     Retro,
     Crime,
     Biopic,
-    Fiction
+    Fiction,
+    Romance
 }
