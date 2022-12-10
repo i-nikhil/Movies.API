@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
@@ -32,11 +33,40 @@ public class MoviesRepository : IMoviesRepository
             .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt == null);
     }
 
-    public async Task PostMovie(MovieRequestDto movieRequestDto)
+    public Task<List<string>> GroupMoviesByGenreId(int id)
     {
+        //Query Syntax
+        /*var movies = from m in context.Movies
+                     join mg in context.MovieGenreMappings
+                     on m.Id equals mg.MovieId
+                     where mg.GenreId == id && m.DeletedAt == null
+                     select m.Title;*/
+
+        //Method Syntax
+        var movies = context.Movies
+            .Where(m => m.DeletedAt == null)
+            .Join(context.MovieGenreMappings.Where(mg => mg.GenreId == id), m => m.Id, mg => mg.MovieId, (m, mg) => m.Title);
+
+        List<string> result = new();
+        foreach (var movie in movies)
+            result.Add(movie);
+
+        return Task.FromResult(result);
+    }
+
+    public async Task<Movie> PostMovie(MovieRequestDto movieRequestDto)
+    {
+        foreach (int gid in movieRequestDto.GenreIds)
+        {
+            if (await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null) is null)
+            {
+                return null;
+            }
+        }
+
         Movie movie = new()
         {
-            Title = movieRequestDto.Title,
+            Title = movieRequestDto.Title.Trim(),
             ReleaseYear = movieRequestDto.ReleaseYear,
             RuntimeMinutes = movieRequestDto.RuntimeMinutes,
             CreatedAt = DateTime.UtcNow,
@@ -58,6 +88,8 @@ public class MoviesRepository : IMoviesRepository
         }
 
         await context.SaveChangesAsync();
+
+        return await GetMovieById(movie.Id);
     }
 
     public async Task<Movie> DeleteMovieById(int id)

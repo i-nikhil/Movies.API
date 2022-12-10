@@ -29,6 +29,11 @@ public class GenresController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult> GetGenreById(int id)
     {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid Genre Id");
+        }
+
         Genre genre = await genreService.GetGenreById(id);
 
         if (genre is null)
@@ -42,7 +47,12 @@ public class GenresController : ControllerBase
     [HttpGet("Search")]
     public async Task<ActionResult> SearchGenreByName(string term)
     {
-        List<Genre> matchingGenres = await genreService.SearchGenreByName(term);
+        if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term))
+        {
+            return BadRequest("Search term cannot be empty");
+        }
+
+        List<Genre> matchingGenres = await genreService.SearchGenreByName(term.Trim());
 
         if (matchingGenres.Count == 0)
         {
@@ -63,6 +73,11 @@ public class GenresController : ControllerBase
     [HttpDelete("Delete/{id:int}")]
     public async Task<ActionResult> DeleteGenreById(int id)
     {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid Genre Id");
+        }
+
         Genre genre = await genreService.DeleteGenreById(id);
 
         if (genre is null)
@@ -76,6 +91,11 @@ public class GenresController : ControllerBase
     [HttpPut("Restore/{id:int}")]
     public async Task<ActionResult> RestoreGenreById(int id)
     {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid Genre Id");
+        }
+
         Genre genre = await genreService.RestoreGenreById(id);
 
         if (genre is null)

@@ -29,6 +29,11 @@ public class MoviesController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult> GetMovieById(int id)
     {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid Movie Id");
+        }
+
         Movie movie = await movieService.GetMovieById(id);
 
         if (movie is null)
@@ -42,7 +47,12 @@ public class MoviesController : ControllerBase
     [HttpGet("Search")]
     public async Task<ActionResult> SearchMovieByName(string term)
     {
-        List<Movie> movies = await movieService.SearchMovieByName(term);   
+        if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term))
+        {
+            return BadRequest("Search term cannot be empty");
+        }
+
+        List<Movie> movies = await movieService.SearchMovieByName(term.Trim());
 
         if (movies.Count == 0)
         {
@@ -52,23 +62,37 @@ public class MoviesController : ControllerBase
         return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
     }
 
-    //[HttpGet("GroupByGenre")]
-    //public async Task<ActionResult> GroupMovieByGenre()
-    //{
-    //    var movies = await context.Movies
-    //        .Where(g => g.DeletedAt == null)
-    //        .GroupBy(g => g.Genres)
-    //        .ToListAsync();
+    [HttpGet("GroupByGenre")]
+    public async Task<ActionResult> GroupMoviesByGenreId(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest("Invalid Movie Id");
+        }
 
-    //    return Ok(movies);
-    //}
+        var movies = await movieService.GroupMoviesByGenreId(id);
+
+        if (movies.Count == 0)
+        {
+            return NotFound($"No movie found!");
+        }
+
+        return Ok(movies);
+    }
 
     [HttpPost("Create")]
     public async Task<ActionResult> PostMovie(MovieRequestDto movieRequestDto)
     {
-        await movieService.PostMovie(movieRequestDto);
+        //add check to match existing title
 
-        return Ok();
+        Movie movie = await movieService.PostMovie(movieRequestDto);
+
+        if (movie is null)
+        {
+            return NotFound("Invalid Genre Id(s)");
+        }
+
+        return Ok(mapper.Map<MovieResponseDto>(movie));
     }
 
     //[HttpPut("Update/{id:int}")]
