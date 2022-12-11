@@ -3,7 +3,7 @@ using Movies.API.DTOs;
 
 namespace Movies.API.Validators
 {
-    public class MovieRequestDtoValidator : AbstractValidator<MovieRequestDto>
+    public class MovieRequestDtoValidator : AbstractValidator<CreateMovieRequestDto>
     {
         public MovieRequestDtoValidator()
         {

@@ -12,9 +12,9 @@ public class GenresController : ControllerBase
 {
     private readonly IGenresService genreService;
     private readonly IMapper mapper;
-    public GenresController(IGenresService genresService, IMapper mapper)
+    public GenresController(IGenresService genreService, IMapper mapper)
     {
-        this.genreService = genresService;
+        this.genreService = genreService;
         this.mapper = mapper;
     }
 
@@ -38,7 +38,7 @@ public class GenresController : ControllerBase
 
         if (genre is null)
         {
-            return NotFound($"The genre with id {id} does not exist!");
+            return NotFound($"Genre with id {id} does not exist!");
         }
 
         return Ok(mapper.Map<GenreResponseDto>(genre));
@@ -56,13 +56,14 @@ public class GenresController : ControllerBase
 
         if (matchingGenres.Count == 0)
         {
-            return NotFound($"No matching genre found!");
+            return NotFound("No matching genre found!");
         }
 
         return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(matchingGenres));
     }
 
     [HttpGet("Timestamps")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> GetAllGenreTimestamps()
     {
         List<Genre> genres = await genreService.GetAllGenreTimestamps();
@@ -71,6 +72,7 @@ public class GenresController : ControllerBase
     }
 
     [HttpDelete("Delete/{id:int}")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> DeleteGenreById(int id)
     {
         if (id <= 0)
@@ -82,13 +84,14 @@ public class GenresController : ControllerBase
 
         if (genre is null)
         {
-            return NotFound($"The genre with id {id} does not exist!");
+            return NotFound($"Genre with id {id} does not exist!");
         }
 
         return Ok($"Successfully deleted genre with id {id}!");
     }
 
     [HttpPut("Restore/{id:int}")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> RestoreGenreById(int id)
     {
         if (id <= 0)
@@ -100,7 +103,7 @@ public class GenresController : ControllerBase
 
         if (genre is null)
         {
-            return NotFound($"The genre with id {id} is not deleted!");
+            return NotFound($"Genre with id {id} is not deleted!");
         }
 
         return Ok($"Successfully restored genre with id {id}!");

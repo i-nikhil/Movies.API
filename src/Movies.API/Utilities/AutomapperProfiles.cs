@@ -18,6 +18,10 @@ public class AutomapperProfiles : Profile
                 Id = z.GenreId,
                 Name = z.Genre.Name.ToString()
             }))
+            )
+            .ForMember(
+            dest => dest.Timestamp,
+            src => src.MapFrom(y => y.UpdatedAt == null ? y.CreatedAt.Ticks : y.UpdatedAt.Value.Ticks)
             );
     }
 }

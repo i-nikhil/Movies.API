@@ -81,10 +81,8 @@ public class MoviesController : ControllerBase
     }
 
     [HttpPost("Create")]
-    public async Task<ActionResult> PostMovie(MovieRequestDto movieRequestDto)
+    public async Task<ActionResult> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
-        //add check to match existing title
-
         Movie movie = await movieService.PostMovie(movieRequestDto);
 
         if (movie is null)
@@ -95,37 +93,36 @@ public class MoviesController : ControllerBase
         return Ok(mapper.Map<MovieResponseDto>(movie));
     }
 
-    //[HttpPut("Update/{id:int}")]
-    //public async Task<ActionResult> UpdateMovie(int id, MovieRequestDto movieRequestDto)
-    //{
-    //    Movie movie = await context.Movies
-    //        .Include(m => m.Genres)
-    //        .ThenInclude(g => g.Genre)
-    //        .FirstOrDefaultAsync(g => g.Id == id);
+    [HttpPut("Update")]
+    public async Task<ActionResult> UpdateMovie(UpdateMovieRequestDto movieRequestDto)
+    {
+        if (movieRequestDto.Id <= 0)
+        {
+            return BadRequest("Invalid Movie Id");
+        }
 
-    //    movie.Title = movieRequestDto.Title;
-    //        ReleaseYear = movieRequestDto.ReleaseYear,
-    //        RuntimeMinutes = movieRequestDto.RuntimeMinutes,
-    //        CreatedAt = DateTime.UtcNow,
-    //        UpdatedAt = null,
-    //        DeletedAt = null
-    //    };
-    //    context.Add(movie);
+        Movie movie = await movieService.GetMovieById(movieRequestDto.Id);
 
-    //    foreach (int gid in movieRequestDto.GenreIds)
-    //    {
-    //        context.MovieGenreMappings.Add(new MovieGenreMapping
-    //        {
-    //            Movie = movie,
-    //            MovieId = movie.Id,
-    //            Genre = await context.Genres.FirstOrDefaultAsync(g => g.Id == movie.Id && g.DeletedAt == null),
-    //            GenreId = gid
-    //        });
-    //    }
+        if (movie is null)
+        {
+            return NotFound($"Movie with id {movieRequestDto.Id} does not exist!");
+        }
 
-    //    await context.SaveChangesAsync();
-    //    return Ok();
-    //}
+        if((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks != movieRequestDto.Timestamp)
+            || (movie.UpdatedAt is null && movie.CreatedAt.Ticks != movieRequestDto.Timestamp))
+        {
+            return BadRequest("Invalid Timestamp");
+        }
+
+        Movie updatedMovie = await movieService.UpdateMovie(movieRequestDto);
+
+        if (updatedMovie is null)
+        {
+            return NotFound("Invalid Genre Id(s)");
+        }
+
+        return Ok(mapper.Map<MovieResponseDto>(updatedMovie));
+    }
 
     [HttpDelete("Delete/{id:int}")]
     public async Task<ActionResult> DeleteMovieById(int id)

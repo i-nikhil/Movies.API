@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
 using Movies.API.Repositories.Interfaces;
@@ -40,7 +38,8 @@ public class MoviesRepository : IMoviesRepository
                      join mg in context.MovieGenreMappings
                      on m.Id equals mg.MovieId
                      where mg.GenreId == id && m.DeletedAt == null
-                     select m.Title;*/
+                     select m.Title;
+        */
 
         //Method Syntax
         var movies = context.Movies
@@ -54,7 +53,7 @@ public class MoviesRepository : IMoviesRepository
         return Task.FromResult(result);
     }
 
-    public async Task<Movie> PostMovie(MovieRequestDto movieRequestDto)
+    public async Task<Movie> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
         foreach (int gid in movieRequestDto.GenreIds)
         {
@@ -73,23 +72,52 @@ public class MoviesRepository : IMoviesRepository
             UpdatedAt = null,
             DeletedAt = null
         };
-
-        context.Add(movie);
-
         foreach (int gid in movieRequestDto.GenreIds)
         {
             context.MovieGenreMappings.Add(new MovieGenreMapping
             {
                 Movie = movie,
                 MovieId = movie.Id,
-                Genre = await context.Genres.FirstOrDefaultAsync(g => g.Id == movie.Id && g.DeletedAt == null),
+                Genre = await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null),
+                GenreId = gid
+            });
+        }
+        context.Add(movie);
+
+        await context.SaveChangesAsync();
+        return movie;
+    }
+
+    public async Task<Movie> UpdateMovie(UpdateMovieRequestDto movieRequestDto)
+    {
+        foreach (int gid in movieRequestDto.GenreIds)
+        {
+            if (await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null) is null)
+            {
+                return null;
+            }
+        }
+        context.MovieGenreMappings.RemoveRange(context.MovieGenreMappings.Where(mg => mg.MovieId == movieRequestDto.Id));
+
+        Movie movie = await GetMovieById(movieRequestDto.Id);
+
+        movie.Title = movieRequestDto.Title.Trim();
+        movie.ReleaseYear = movieRequestDto.ReleaseYear;
+        movie.RuntimeMinutes = movieRequestDto.RuntimeMinutes;
+        movie.UpdatedAt = DateTime.UtcNow;
+        foreach (int gid in movieRequestDto.GenreIds)
+        {
+            movie.Genres.Add(new MovieGenreMapping
+            {
+                Movie = movie,
+                MovieId = movie.Id,
+                Genre = await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null),
                 GenreId = gid
             });
         }
 
         await context.SaveChangesAsync();
-
-        return await GetMovieById(movie.Id);
+        return movie;
     }
 
     public async Task<Movie> DeleteMovieById(int id)
@@ -101,6 +129,7 @@ public class MoviesRepository : IMoviesRepository
 
         movie.DeletedAt = DateTime.UtcNow;
         movie.UpdatedAt = DateTime.UtcNow;
+
         await context.SaveChangesAsync();
         return movie;
     }
@@ -115,6 +144,7 @@ public class MoviesRepository : IMoviesRepository
 
         movie.DeletedAt = null;
         movie.UpdatedAt = DateTime.UtcNow;
+
         await context.SaveChangesAsync();
         return movie;
     }

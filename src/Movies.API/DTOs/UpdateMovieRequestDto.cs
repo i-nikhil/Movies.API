@@ -2,9 +2,12 @@
 
 namespace Movies.API.DTOs;
 
-public class MovieRequestDto
+public class UpdateMovieRequestDto
 {
-    [Required (ErrorMessage ="Title is required")]
+    [Required(ErrorMessage = "Movie Id is required")]
+    public int Id { get; set; }
+
+    [Required(ErrorMessage = "Title is required")]
     public string Title { get; set; }
 
     [Required(ErrorMessage = "Release Year is required")]
@@ -18,4 +21,8 @@ public class MovieRequestDto
     [Required(ErrorMessage = "Genre Id is required")]
     [MinLength(1, ErrorMessage = "Minimum one Genre Id is required")]
     public List<int> GenreIds { get; set; }
+
+    [Required(ErrorMessage = "Timestamp is required")]
+    [Range(0, 3155378975999999999, ErrorMessage = "Invalid Timestamp")]
+    public long Timestamp { get; set; }
 }

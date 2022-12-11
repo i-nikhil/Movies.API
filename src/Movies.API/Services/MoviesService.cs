@@ -41,9 +41,14 @@ public class MoviesService : IMoviesService
         return await movieRepository.GroupMoviesByGenreId(id);
     }
 
-    public async Task<Movie> PostMovie(MovieRequestDto movieRequestDto)
+    public async Task<Movie> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
         return await movieRepository.PostMovie(movieRequestDto);
+    }
+
+    public async Task<Movie> UpdateMovie(UpdateMovieRequestDto movieRequestDto)
+    {
+        return await movieRepository.UpdateMovie(movieRequestDto);
     }
 
     public async Task<Movie> DeleteMovieById(int id)
