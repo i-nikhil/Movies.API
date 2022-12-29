@@ -336,4 +336,3 @@ namespace Movies.API.Migrations;
 #pragma warning restore 612, 618
         }
     }
-}
