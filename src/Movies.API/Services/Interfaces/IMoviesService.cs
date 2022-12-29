@@ -5,7 +5,7 @@ namespace Movies.API.Services.Interfaces;
 
 public interface IMoviesService
 {
-    Task<List<Movie>> GetAllMovie();
+    Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir);
     Task<Movie> GetMovieById(int id);
     Task<List<Movie>> SearchMovieByName(string term);
     Task<List<string>> GroupMoviesByGenreId(int id);

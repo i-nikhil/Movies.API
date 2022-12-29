@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Extensions;
 using Movies.API.DTOs;
 using Movies.API.Entities;
 using Movies.API.Repositories.Interfaces;
+using System.Collections.Generic;
 
 namespace Movies.API.Repositories;
 
@@ -13,13 +16,15 @@ public class MoviesRepository : IMoviesRepository
         this.context = context;
     }
 
-    public async Task<List<Movie>> GetAllMovie()
+    public async Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir)
     {
         return await context.Movies
-            .Where(g => g.DeletedAt == null)
+            .Where(m => m.DeletedAt == null)
             .Include(m => m.Genres) // Populating public ICollection<MovieGenreMapping> Genres { get; set; } (Populate the mapping)
-            .ThenInclude(g => g.Genre) // public Genre Genre { get; set; } (Populate each item in mapping)
-            .OrderByDescending(m => m.ReleaseYear)
+            .ThenInclude(mg => mg.Genre) // public Genre Genre { get; set; } (Populate each item in mapping)
+            //.OrderBy(m => m.Equals(sortCol.ToString()))
+            .Skip((page - 1) * limit)
+            .Take(limit)
             .ToListAsync();
     }
 
@@ -29,6 +34,15 @@ public class MoviesRepository : IMoviesRepository
             .Include(m => m.Genres)
             .ThenInclude(g => g.Genre)
             .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt == null);
+    }
+
+    public async Task<List<Movie>> SearchMovieByName(string term)
+    {
+        return await context.Movies
+            .Where(m => m.DeletedAt == null && m.Title.Contains(term))
+            .Include(m => m.Genres)
+            .ThenInclude(mg => mg.Genre)
+            .ToListAsync();
     }
 
     public Task<List<string>> GroupMoviesByGenreId(int id)

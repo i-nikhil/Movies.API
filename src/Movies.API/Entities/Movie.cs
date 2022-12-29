@@ -11,3 +11,16 @@ public class Movie
     public DateTime? DeletedAt { get; set; }
     public ICollection<MovieGenreMapping> Genres { get; set; }
 }
+
+public enum SortColumn
+{
+    Title,
+    ReleaseYear,
+    RuntimeMinutes
+}
+
+public enum SortDirection
+{
+    Asc,
+    Desc
+}

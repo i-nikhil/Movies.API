@@ -19,9 +19,12 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAllMovie()
+    public async Task<ActionResult> GetAllMovie(int page = 1,
+        int limit = 1000,
+        SortColumn sortCol = SortColumn.ReleaseYear,
+        SortDirection sortDir = SortDirection.Desc)
     {
-        List<Movie> movies = await movieService.GetAllMovie();
+        List<Movie> movies = await movieService.GetAllMovie(page, limit, sortCol, sortDir);
 
         return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
     }

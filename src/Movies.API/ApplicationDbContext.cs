@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
     {
-        configurationBuilder.Properties<DateTime>().HaveColumnType("date");
+        configurationBuilder.Properties<DateTime>().HaveColumnType("datetime");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

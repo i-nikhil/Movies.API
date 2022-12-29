@@ -13,9 +13,9 @@ public class MoviesService : IMoviesService
         this.movieRepository = movieRepository;
     }
 
-    public async Task<List<Movie>> GetAllMovie()
+    public async Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir)
     {
-        return await movieRepository.GetAllMovie();
+        return await movieRepository.GetAllMovie(page, limit, sortCol, sortDir);
     }
     
     public async Task<Movie> GetMovieById(int id)
@@ -25,15 +25,7 @@ public class MoviesService : IMoviesService
     
     public async Task<List<Movie>> SearchMovieByName(string term)
     {
-        List<Movie> movies = await movieRepository.GetAllMovie();
-
-        List<Movie> matchingMovies = new();
-
-        matchingMovies.AddRange(from movie in movies
-                                where movie.Title.Contains(term, StringComparison.CurrentCultureIgnoreCase)
-                                select movie);
-
-        return matchingMovies;
+        return await movieRepository.SearchMovieByName(term);
     }
 
     public async Task<List<string>> GroupMoviesByGenreId(int id)

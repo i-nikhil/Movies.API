@@ -10,8 +10,5 @@ public class MovieConfig : IEntityTypeConfiguration<Movie>
         builder.Property(p => p.Title).IsRequired();
         builder.Property(p => p.ReleaseYear).IsRequired();
         builder.Property(p => p.RuntimeMinutes).IsRequired();
-        builder.Property(p => p.CreatedAt).HasColumnType("datetime");
-        builder.Property(p => p.UpdatedAt).HasColumnType("datetime");
-        builder.Property(p => p.DeletedAt).HasColumnType("datetime");
     }
 }
