@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
 using Movies.API.Repositories.Interfaces;
-using System.Collections.Generic;
 
 namespace Movies.API.Repositories;
 
@@ -18,14 +15,31 @@ public class MoviesRepository : IMoviesRepository
 
     public async Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir)
     {
-        return await context.Movies
+        int skip = (page - 1) * limit;
+
+        IQueryable<Movie> movieQueryable = context.Movies
             .Where(m => m.DeletedAt == null)
             .Include(m => m.Genres) // Populating public ICollection<MovieGenreMapping> Genres { get; set; } (Populate the mapping)
-            .ThenInclude(mg => mg.Genre) // public Genre Genre { get; set; } (Populate each item in mapping)
-            //.OrderBy(m => m.Equals(sortCol.ToString()))
-            .Skip((page - 1) * limit)
-            .Take(limit)
-            .ToListAsync();
+            .ThenInclude(mg => mg.Genre); // public Genre Genre { get; set; } (Populate each item in mapping)
+
+        switch (sortCol)
+        {
+            case SortColumn.Title:
+                movieQueryable = sortDir == SortDirection.Asc ? movieQueryable.OrderBy(x => x.Title) : movieQueryable.OrderByDescending(x => x.Title);
+                break;
+            case SortColumn.ReleaseYear:
+                movieQueryable = sortDir == SortDirection.Asc ? movieQueryable.OrderBy(x => x.ReleaseYear) : movieQueryable.OrderByDescending(x => x.ReleaseYear);
+                break;
+            case SortColumn.RuntimeMinutes:
+                movieQueryable = sortDir == SortDirection.Asc ? movieQueryable.OrderBy(x => x.RuntimeMinutes) : movieQueryable.OrderByDescending(x => x.RuntimeMinutes);
+                break;
+        }
+
+        movieQueryable = movieQueryable
+        .Skip(skip)
+        .Take(limit);
+
+        return await movieQueryable.ToListAsync();
     }
 
     public async Task<Movie> GetMovieById(int id)
