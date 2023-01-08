@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.DTOs;
 using Movies.API.Entities;
+using Movies.API.Exceptions;
 using Movies.API.Services.Interfaces;
 
 namespace Movies.API.Controllers;
@@ -21,91 +22,124 @@ public class GenresController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetAllGenre()
     {
-        List<Genre> genres = await genreService.GetAllGenre();
+        try
+        {
+            List<Genre> genres = await genreService.GetAllGenre();
 
-        return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(genres));
+            return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(genres));
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("{id:int}")]
     public async Task<ActionResult> GetGenreById(int id)
     {
-        if (id <= 0)
+        try
         {
-            return BadRequest("Invalid Genre Id");
+            Genre genre = await genreService.GetGenreById(id);
+            return Ok(mapper.Map<GenreResponseDto>(genre));
         }
-
-        Genre genre = await genreService.GetGenreById(id);
-
-        if (genre is null)
+        catch (InvalidGenreIdException ex)
         {
-            return NotFound($"Genre with id {id} does not exist!");
+            return BadRequest(ex.Message);
         }
-
-        return Ok(mapper.Map<GenreResponseDto>(genre));
+        catch (GenreNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("Search")]
     public async Task<ActionResult> SearchGenreByName(string term)
     {
-        if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term))
+        try
         {
-            return BadRequest("Search term cannot be empty");
+            List<Genre> matchingGenres = await genreService.SearchGenreByName(term);
+
+            return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(matchingGenres));
         }
-
-        List<Genre> matchingGenres = await genreService.SearchGenreByName(term.Trim());
-
-        if (matchingGenres.Count == 0)
+        catch (InvalidSearchTermException ex)
         {
-            return NotFound("No matching genre found!");
+            return BadRequest(ex.Message);
         }
-
-        return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(matchingGenres));
+        catch (GenreNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpGet("Timestamps")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> GetAllGenreTimestamps()
     {
-        List<Genre> genres = await genreService.GetAllGenreTimestamps();
+        try
+        {
+            List<Genre> genres = await genreService.GetAllGenreTimestamps();
 
-        return Ok(genres);
+            return Ok(genres);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("Delete/{id:int}")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> DeleteGenreById(int id)
     {
-        if (id <= 0)
+        try
         {
-            return BadRequest("Invalid Genre Id");
+            await genreService.DeleteGenreById(id);
+
+            return Ok($"Successfully deleted genre with id {id}!");
         }
-
-        Genre genre = await genreService.DeleteGenreById(id);
-
-        if (genre is null)
+        catch (InvalidGenreIdException ex)
         {
-            return NotFound($"Genre with id {id} does not exist!");
+            return BadRequest(ex.Message);
         }
-
-        return Ok($"Successfully deleted genre with id {id}!");
+        catch (GenreNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut("Restore/{id:int}")]
     [ApiExplorerSettings(IgnoreApi = true)]
     public async Task<ActionResult> RestoreGenreById(int id)
     {
-        if (id <= 0)
+        try
         {
-            return BadRequest("Invalid Genre Id");
+            await genreService.RestoreGenreById(id);
+
+            return Ok($"Successfully restored genre with id {id}!");
         }
-
-        Genre genre = await genreService.RestoreGenreById(id);
-
-        if (genre is null)
+        catch (InvalidGenreIdException ex)
         {
-            return NotFound($"Genre with id {id} is not deleted!");
+            return BadRequest(ex.Message);
         }
-
-        return Ok($"Successfully restored genre with id {id}!");
+        catch (GenreNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

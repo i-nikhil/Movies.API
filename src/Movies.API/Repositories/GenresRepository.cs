@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Extensions;
 using Movies.API.Entities;
+using Movies.API.Exceptions;
 using Movies.API.Repositories.Interfaces;
 
 namespace Movies.API.Repositories
@@ -24,6 +26,13 @@ namespace Movies.API.Repositories
                 .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt == null);
         }
 
+        public async Task<List<Genre>> SearchGenreByName(string term)//to be fixed
+        {
+            return await context.Genres
+            .Where(g => g.DeletedAt == null && g.Name.GetDisplayName().Contains(term))
+            .ToListAsync();
+        }
+
         public async Task<List<Genre>> GetAllGenreTimestamps()
         {
             return await context.Genres
@@ -35,7 +44,9 @@ namespace Movies.API.Repositories
             Genre genre = await GetGenreById(id);
 
             if (genre is null)
-                return genre;
+            {
+                throw new GenreNotFoundException($"Genre with id {id} does not exist!");
+            }
 
             genre.DeletedAt = DateTime.UtcNow;
             genre.UpdatedAt = DateTime.UtcNow;
@@ -49,7 +60,9 @@ namespace Movies.API.Repositories
                 .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt != null);
 
             if (genre is null)
-                return genre;
+            {
+                throw new GenreNotFoundException($"Genre with id {id} is not deleted!");
+            }
 
             genre.DeletedAt = null;
             genre.UpdatedAt = DateTime.UtcNow;
