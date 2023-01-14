@@ -1,5 +1,6 @@
 ﻿using Movies.API.DTOs;
 using Movies.API.Entities;
+using Movies.API.Exceptions;
 using Movies.API.Repositories.Interfaces;
 using Movies.API.Services.Interfaces;
 
@@ -15,22 +16,68 @@ public class MoviesService : IMoviesService
 
     public async Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir)
     {
+        if (page < 0)
+        {
+            throw new InvalidPageNumberException("Page number can not be negative.");
+        }
+
+        if (limit < 0)
+        {
+            throw new InvalidPageLimitException("Page limit can not be negative.");
+        }
+
         return await movieRepository.GetAllMovie(page, limit, sortCol, sortDir);
     }
-    
+
     public async Task<Movie> GetMovieById(int id)
     {
-        return await movieRepository.GetMovieById(id);
+        if (id <= 0)
+        {
+            throw new InvalidMovieIdException("Invalid Movie Id");
+        }
+
+        Movie movie = await movieRepository.GetMovieById(id);
+
+        if (movie is null)
+        {
+            throw new MovieNotFoundException($"The movie with id {id} does not exist!");
+        }
+
+        return movie;
     }
-    
+
     public async Task<List<Movie>> SearchMovieByName(string term)
     {
-        return await movieRepository.SearchMovieByName(term);
+        if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term))
+        {
+            throw new InvalidSearchTermException("Search term cannot be empty");
+        }
+
+        List<Movie> movies = await movieRepository.SearchMovieByName(term.Trim());
+
+        if (movies.Count == 0)
+        {
+            throw new MovieNotFoundException($"No matching movie found!");
+        }
+
+        return movies;
     }
 
     public async Task<List<string>> GroupMoviesByGenreId(int id)
     {
-        return await movieRepository.GroupMoviesByGenreId(id);
+        if (id <= 0)
+        {
+            throw new InvalidMovieIdException("Invalid Movie Id");
+        }
+
+        List<string> movies = await movieRepository.GroupMoviesByGenreId(id);
+
+        if (movies.Count == 0)
+        {
+            throw new MovieNotFoundException($"No movie found!");
+        }
+
+        return movies;
     }
 
     public async Task<Movie> PostMovie(CreateMovieRequestDto movieRequestDto)
@@ -45,11 +92,21 @@ public class MoviesService : IMoviesService
 
     public async Task<Movie> DeleteMovieById(int id)
     {
+        if (id <= 0)
+        {
+            throw new InvalidMovieIdException("Invalid Movie Id");
+        }
+
         return await movieRepository.DeleteMovieById(id);
     }
 
     public async Task<Movie> RestoreMovieById(int id)
     {
+        if (id <= 0)
+        {
+            throw new InvalidMovieIdException("Invalid Movie Id");
+        }
+
         return await movieRepository.RestoreMovieById(id);
     }
 }

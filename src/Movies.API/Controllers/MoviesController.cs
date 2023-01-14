@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Movies.API.DTOs;
 using Movies.API.Entities;
+using Movies.API.Exceptions;
 using Movies.API.Services.Interfaces;
 
 namespace Movies.API.Controllers;
@@ -19,137 +20,133 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult> GetAllMovie(int page = 1,
+    public async Task<ActionResult> GetAllMovie(
+        int page = 1,
         int limit = 1000,
         SortColumn sortCol = SortColumn.ReleaseYear,
         SortDirection sortDir = SortDirection.Desc)
     {
-        List<Movie> movies = await movieService.GetAllMovie(page, limit, sortCol, sortDir);
-
-        return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
+        try
+        {
+            List<Movie> movies = await movieService.GetAllMovie(page, limit, sortCol, sortDir);
+            return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
+        }
+        catch (Exception ex)
+        {
+            return HandleExceptions(ex);
+        }
     }
 
     [HttpGet("{id:int}")]
     public async Task<ActionResult> GetMovieById(int id)
     {
-        if (id <= 0)
+        try
         {
-            return BadRequest("Invalid Movie Id");
+            Movie movie = await movieService.GetMovieById(id);
+            return Ok(mapper.Map<MovieResponseDto>(movie));
         }
-
-        Movie movie = await movieService.GetMovieById(id);
-
-        if (movie is null)
+        catch (Exception ex)
         {
-            return NotFound($"The movie with id {id} does not exist!");
+            return HandleExceptions(ex);
         }
-
-        return Ok(mapper.Map<MovieResponseDto>(movie));
     }
 
     [HttpGet("Search")]
     public async Task<ActionResult> SearchMovieByName(string term)
     {
-        if (string.IsNullOrEmpty(term) || string.IsNullOrWhiteSpace(term))
+        try
         {
-            return BadRequest("Search term cannot be empty");
+            List<Movie> movies = await movieService.SearchMovieByName(term);
+            return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
         }
-
-        List<Movie> movies = await movieService.SearchMovieByName(term.Trim());
-
-        if (movies.Count == 0)
+        catch (Exception ex)
         {
-            return NotFound($"No matching movie found!");
+            return HandleExceptions(ex);
         }
-
-        return Ok(mapper.Map<IEnumerable<MovieResponseDto>>(movies));
     }
 
     [HttpGet("GroupByGenre")]
     public async Task<ActionResult> GroupMoviesByGenreId(int id)
     {
-        if (id <= 0)
+        try
         {
-            return BadRequest("Invalid Movie Id");
+            var movies = await movieService.GroupMoviesByGenreId(id);
+            return Ok(movies);
         }
-
-        var movies = await movieService.GroupMoviesByGenreId(id);
-
-        if (movies.Count == 0)
+        catch (Exception ex)
         {
-            return NotFound($"No movie found!");
+            return HandleExceptions(ex);
         }
-
-        return Ok(movies);
     }
 
     [HttpPost("Create")]
     public async Task<ActionResult> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
-        Movie movie = await movieService.PostMovie(movieRequestDto);
-
-        if (movie is null)
+        try
         {
-            return NotFound("Invalid Genre Id(s)");
+            Movie movie = await movieService.PostMovie(movieRequestDto);
+            return Ok(mapper.Map<MovieResponseDto>(movie));
         }
-
-        return Ok(mapper.Map<MovieResponseDto>(movie));
+        catch (Exception ex)
+        {
+            return HandleExceptions(ex);
+        }
     }
 
     [HttpPut("Update")]
     public async Task<ActionResult> UpdateMovie(UpdateMovieRequestDto movieRequestDto)
     {
-        if (movieRequestDto.Id <= 0)
+        try
         {
-            return BadRequest("Invalid Movie Id");
+            Movie updatedMovie = await movieService.UpdateMovie(movieRequestDto);
+            return Ok(mapper.Map<MovieResponseDto>(updatedMovie));
         }
-
-        Movie movie = await movieService.GetMovieById(movieRequestDto.Id);
-
-        if (movie is null)
+        catch (Exception ex)
         {
-            return NotFound($"Movie with id {movieRequestDto.Id} does not exist!");
+            return HandleExceptions(ex);
         }
-
-        if((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks != movieRequestDto.Timestamp)
-            || (movie.UpdatedAt is null && movie.CreatedAt.Ticks != movieRequestDto.Timestamp))
-        {
-            return BadRequest("Invalid Timestamp");
-        }
-
-        Movie updatedMovie = await movieService.UpdateMovie(movieRequestDto);
-
-        if (updatedMovie is null)
-        {
-            return NotFound("Invalid Genre Id(s)");
-        }
-
-        return Ok(mapper.Map<MovieResponseDto>(updatedMovie));
     }
 
     [HttpDelete("Delete/{id:int}")]
     public async Task<ActionResult> DeleteMovieById(int id)
     {
-        Movie movie = await movieService.DeleteMovieById(id);
-
-        if (movie is null)
+        try
         {
-            return NotFound($"The movie with id {id} does not exist!");
+            await movieService.DeleteMovieById(id);
+            return Ok($"Successfully deleted movie with id {id}!");
         }
-
-        return Ok($"Successfully deleted movie with id {id}!");
+        catch (Exception ex)
+        {
+            return HandleExceptions(ex);
+        }
     }
 
     [HttpPut("Restore/{id:int}")]
     public async Task<ActionResult> RestoreMovieById(int id)
     {
-        Movie movie = await movieService.RestoreMovieById(id);
-
-        if (movie is null)
+        try
         {
-            return NotFound($"The movie with id {id} is not deleted!");
+            await movieService.RestoreMovieById(id);
+            return Ok($"Successfully restored movie with id {id}!");
         }
+        catch (Exception ex)
+        {
+            return HandleExceptions(ex);
+        }
+    }
 
-        return Ok($"Successfully restored movie with id {id}!");
+    private ActionResult HandleExceptions(Exception ex)
+    {
+        switch (ex)
+        {
+            case MovieNotFoundException: return NotFound(ex.Message);
+            case InvalidPageNumberException:
+            case InvalidPageLimitException:
+            case InvalidMovieIdException:
+            case InvalidGenreIdException:
+            case InvalidSearchTermException:
+            case TimestampMismatchException:
+            default: return BadRequest(ex.Message);
+        }
     }
 }

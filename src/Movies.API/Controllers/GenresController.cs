@@ -25,12 +25,11 @@ public class GenresController : ControllerBase
         try
         {
             List<Genre> genres = await genreService.GetAllGenre();
-
             return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(genres));
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
         }
     }
 
@@ -42,17 +41,9 @@ public class GenresController : ControllerBase
             Genre genre = await genreService.GetGenreById(id);
             return Ok(mapper.Map<GenreResponseDto>(genre));
         }
-        catch (InvalidGenreIdException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (GenreNotFoundException ex)
-        {
-            return NotFound(ex.Message);
-        }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
         }
     }
 
@@ -62,20 +53,11 @@ public class GenresController : ControllerBase
         try
         {
             List<Genre> matchingGenres = await genreService.SearchGenreByName(term);
-
             return Ok(mapper.Map<IEnumerable<GenreResponseDto>>(matchingGenres));
-        }
-        catch (InvalidSearchTermException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (GenreNotFoundException ex)
-        {
-            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
         }
     }
 
@@ -86,12 +68,11 @@ public class GenresController : ControllerBase
         try
         {
             List<Genre> genres = await genreService.GetAllGenreTimestamps();
-
             return Ok(genres);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
         }
     }
 
@@ -102,20 +83,11 @@ public class GenresController : ControllerBase
         try
         {
             await genreService.DeleteGenreById(id);
-
             return Ok($"Successfully deleted genre with id {id}!");
-        }
-        catch (InvalidGenreIdException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (GenreNotFoundException ex)
-        {
-            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
         }
     }
 
@@ -126,20 +98,22 @@ public class GenresController : ControllerBase
         try
         {
             await genreService.RestoreGenreById(id);
-
             return Ok($"Successfully restored genre with id {id}!");
-        }
-        catch (InvalidGenreIdException ex)
-        {
-            return BadRequest(ex.Message);
-        }
-        catch (GenreNotFoundException ex)
-        {
-            return NotFound(ex.Message);
         }
         catch (Exception ex)
         {
-            return BadRequest(ex.Message);
+            return HandleExceptions(ex);
+        }
+    }
+
+    private ActionResult HandleExceptions(Exception ex)
+    {
+        switch (ex)
+        {
+            case GenreNotFoundException: return NotFound(ex.Message);
+            case InvalidGenreIdException:
+            case InvalidSearchTermException:
+            default: return BadRequest(ex.Message);
         }
     }
 }

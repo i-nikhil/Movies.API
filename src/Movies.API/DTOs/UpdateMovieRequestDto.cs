@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace Movies.API.DTOs;
 
 public class UpdateMovieRequestDto
 {
     [Required(ErrorMessage = "Movie Id is required")]
+    [Range(1, int.MaxValue, ErrorMessage = "Invalid Movie Id")]
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Title is required")]
@@ -20,9 +20,9 @@ public class UpdateMovieRequestDto
 
     [Required(ErrorMessage = "Genre Id is required")]
     [MinLength(1, ErrorMessage = "Minimum one Genre Id is required")]
-    public List<int> GenreIds { get; set; }
+    public HashSet<int> GenreIds { get; set; }
 
     [Required(ErrorMessage = "Timestamp is required")]
-    [Range(0, 3155378975999999999, ErrorMessage = "Invalid Timestamp")]
+    [Range(0, long.MaxValue, ErrorMessage = "Invalid Timestamp")]
     public long Timestamp { get; set; }
 }

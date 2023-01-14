@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
+using Movies.API.Exceptions;
 using Movies.API.Repositories.Interfaces;
 
 namespace Movies.API.Repositories;
@@ -87,7 +88,7 @@ public class MoviesRepository : IMoviesRepository
         {
             if (await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null) is null)
             {
-                return null;
+                throw new InvalidGenreIdException("Invalid Genre Id(s)");
             }
         }
 
@@ -118,16 +119,28 @@ public class MoviesRepository : IMoviesRepository
 
     public async Task<Movie> UpdateMovie(UpdateMovieRequestDto movieRequestDto)
     {
+        Movie movie = await GetMovieById(movieRequestDto.Id);
+
+        if (movie is null)
+        {
+            throw new MovieNotFoundException($"The movie with id {movieRequestDto.Id} does not exist!");
+        }
+
+        if ((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks != movieRequestDto.Timestamp)
+            || (movie.UpdatedAt is null && movie.CreatedAt.Ticks != movieRequestDto.Timestamp))
+        {
+            throw new TimestampMismatchException("Timestamp does not match existing Movie's timestamp");
+        }
+
         foreach (int gid in movieRequestDto.GenreIds)
         {
             if (await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null) is null)
             {
-                return null;
+                throw new InvalidGenreIdException("Invalid Genre Id(s)");
             }
         }
-        context.MovieGenreMappings.RemoveRange(context.MovieGenreMappings.Where(mg => mg.MovieId == movieRequestDto.Id));
 
-        Movie movie = await GetMovieById(movieRequestDto.Id);
+        context.MovieGenreMappings.RemoveRange(context.MovieGenreMappings.Where(mg => mg.MovieId == movieRequestDto.Id));
 
         movie.Title = movieRequestDto.Title.Trim();
         movie.ReleaseYear = movieRequestDto.ReleaseYear;
@@ -153,7 +166,9 @@ public class MoviesRepository : IMoviesRepository
         Movie movie = await GetMovieById(id);
 
         if (movie is null)
-            return movie;
+        {
+            throw new MovieNotFoundException($"The movie with id {id} does not exist!");
+        }
 
         movie.DeletedAt = DateTime.UtcNow;
         movie.UpdatedAt = DateTime.UtcNow;
@@ -168,7 +183,9 @@ public class MoviesRepository : IMoviesRepository
                 .FirstOrDefaultAsync(m => m.Id == id && m.DeletedAt != null);
 
         if (movie is null)
-            return movie;
+        {
+            throw new MovieNotFoundException($"The movie with id {id} is not deleted!");
+        }
 
         movie.DeletedAt = null;
         movie.UpdatedAt = DateTime.UtcNow;

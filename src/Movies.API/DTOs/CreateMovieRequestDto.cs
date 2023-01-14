@@ -4,7 +4,7 @@ namespace Movies.API.DTOs;
 
 public class CreateMovieRequestDto
 {
-    [Required (ErrorMessage ="Title is required")]
+    [Required(ErrorMessage = "Title is required")]
     public string Title { get; set; }
 
     [Required(ErrorMessage = "Release Year is required")]
@@ -17,5 +17,5 @@ public class CreateMovieRequestDto
 
     [Required(ErrorMessage = "Genre Id is required")]
     [MinLength(1, ErrorMessage = "Minimum one Genre Id is required")]
-    public List<int> GenreIds { get; set; }
+    public HashSet<int> GenreIds { get; set; }
 }
