@@ -16,17 +16,12 @@ public class MoviesService : IMoviesService
 
     public async Task<List<Movie>> GetAllMovie(int page, int limit, SortColumn sortCol, SortDirection sortDir)
     {
-        if (page < 0)
-        {
-            throw new InvalidPageNumberException("Page number can not be negative.");
-        }
-
-        if (limit < 0)
-        {
-            throw new InvalidPageLimitException("Page limit can not be negative.");
-        }
-
         return await movieRepository.GetAllMovie(page, limit, sortCol, sortDir);
+    }
+
+    public async Task<int> GetMovieCount()
+    {
+        return await movieRepository.GetMovieCount();
     }
 
     public async Task<Movie> GetMovieById(int id)

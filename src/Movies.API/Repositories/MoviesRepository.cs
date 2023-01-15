@@ -43,6 +43,13 @@ public class MoviesRepository : IMoviesRepository
         return await movieQueryable.ToListAsync();
     }
 
+    public async Task<int> GetMovieCount()
+    {
+        return await context.Movies
+            .Where(m => m.DeletedAt == null)
+            .CountAsync();
+    }
+
     public async Task<Movie> GetMovieById(int id)
     {
         return await context.Movies
