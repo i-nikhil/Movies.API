@@ -62,7 +62,7 @@ public class MoviesService : IMoviesService
     {
         if (id <= 0)
         {
-            throw new InvalidMovieIdException("Invalid Movie Id");
+            throw new InvalidGenreIdException("Invalid Genre Id");
         }
 
         List<string> movies = await movieRepository.GroupMoviesByGenreId(id);
