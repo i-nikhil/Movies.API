@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Movies.API;
+using Movies.API.Middlewares;
 using Movies.API.Repositories;
 using Movies.API.Repositories.Interfaces;
 using Movies.API.Services;
@@ -31,6 +32,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<UnhandledExceptionMiddleware>();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
