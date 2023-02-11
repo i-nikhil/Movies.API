@@ -1,0 +1,12 @@
+D:\dev\csc\Movies\tests\Movies.Tests\bin\Debug\net6.0\Movies.UnitTest.deps.json
+D:\dev\csc\Movies\tests\Movies.Tests\bin\Debug\net6.0\Movies.UnitTest.dll
+D:\dev\csc\Movies\tests\Movies.Tests\bin\Debug\net6.0\Movies.UnitTest.pdb
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.csproj.AssemblyReference.cache
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.GeneratedMSBuildEditorConfig.editorconfig
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.AssemblyInfoInputs.cache
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.AssemblyInfo.cs
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.csproj.CoreCompileInputs.cache
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.dll
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\refint\Movies.UnitTest.dll
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\Movies.UnitTest.pdb
+D:\dev\csc\Movies\tests\Movies.Tests\obj\Debug\net6.0\ref\Movies.UnitTest.dll

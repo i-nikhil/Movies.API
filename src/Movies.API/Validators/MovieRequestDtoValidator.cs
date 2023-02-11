@@ -9,44 +9,35 @@ namespace Movies.API.Validators
         {
             RuleFor(c => c.Title)
                 .NotNull()
-                .WithMessage("Title is Required");
-
-            RuleFor(c => c.Title)
+                .WithMessage("{PropertyName} is Required")
                 .MinimumLength(2)
-                .WithMessage("Title should be minimum 2 in length");
-
-            RuleFor(c => c.Title)
+                .WithMessage("{PropertyName} should be minimum 2 in length")
                 .MaximumLength(200)
-                .WithMessage("Title should be maximum 200 in length");
+                .WithMessage("{PropertyName} should be maximum 200 in length")
+                .Must(Title => !string.IsNullOrEmpty(Title) && !string.IsNullOrWhiteSpace(Title))
+                .WithMessage("{PropertyName} cannot be null or empty");
+
+            RuleFor(c => c.ReleaseYear)
+                .NotNull()
+                .WithMessage("{PropertyName} is required")
+                .InclusiveBetween(DateTime.MinValue.Year, DateTime.UtcNow.Year)
+                .WithMessage("Invalid {PropertyName}");
 
             RuleFor(c => c.RuntimeMinutes)
                 .NotNull()
-                .WithMessage("Runtime is required");
-
-            RuleFor(c => c.RuntimeMinutes)
+                .WithMessage("{PropertyName} is required")
                 .GreaterThan(30)
-                .WithMessage("Runtime should be grater than 30 minutes");
-
-            RuleFor(c => c.RuntimeMinutes)
-                .LessThan(30)
-                .WithMessage("Runtime should be less than 5 hours");
-
-            RuleFor(c => c.ReleaseYear)
-                .NotNull()
-                .WithMessage("Release year is required");
-
-            RuleFor(c => c.ReleaseYear)
-                .InclusiveBetween(DateTime.MinValue.Year, DateTime.Now.Year)
-                .WithMessage("Invalid release year");
+                .WithMessage("{PropertyName} should be grater than 30 minutes")
+                .LessThan(240)
+                .WithMessage("{PropertyName} should be less than 4 hours");
 
             RuleFor(c => c.GenreIds)
                 .NotNull()
+                .WithMessage("{PropertyName} is Required")
                 .NotEmpty()
-                .WithMessage("Aleast one genre is required");
-
-            RuleFor(c => c.GenreIds)
+                .WithMessage("Aleast one genre is required")
                 .ForEach(c => c.GreaterThanOrEqualTo(0))
-                .WithMessage("Genre id should be positive");
+                .WithMessage("{PropertyName} should be positive");
         }
     }
 }

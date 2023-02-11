@@ -1,0 +1,17 @@
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Infrastructure.deps.json
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Infrastructure.runtimeconfig.json
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Infrastructure.dll
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Infrastructure.pdb
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Domain.dll
+D:\dev\csc\Movies\src\Movies.Infrastructure\bin\Debug\net6.0\Movies.Domain.pdb
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.csproj.AssemblyReference.cache
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.AssemblyInfoInputs.cache
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.AssemblyInfo.cs
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.csproj.CoreCompileInputs.cache
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.csproj.CopyComplete
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.dll
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\refint\Movies.Infrastructure.dll
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.pdb
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\Movies.Infrastructure.genruntimeconfig.cache
+D:\dev\csc\Movies\src\Movies.Infrastructure\obj\Debug\net6.0\ref\Movies.Infrastructure.dll
