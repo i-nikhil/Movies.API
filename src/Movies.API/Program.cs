@@ -6,7 +6,7 @@ using Movies.API.Repositories;
 using Movies.API.Repositories.Interfaces;
 using Movies.API.Services;
 using Movies.API.Services.Interfaces;
-using Movies.API.Validators;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<MovieRequestDtoValidator>());
+builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer("name=DefaultConnection");
