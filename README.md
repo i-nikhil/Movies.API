@@ -4,7 +4,7 @@ An Entity Framework Core 6 Project
 Welcome to Movies.API, a handcrafted backend application built on the robust foundation of .NET 6, Entity Framework Core, REST API, SQL Server, and Swagger Documentation. Let's dive into the features:
 
 ## Functionality:
-- Leverage the power of 'AutoMapper' to effortlessly handle custom request DTOs, accepting user's data and effortlessly segregating it into respective mapped tables.
+- Leverage the power of 'Auto Mapper' to handle custom request DTOs, accepting user's data and effortlessly segregating it into respective mapped tables.
 - Integration of 'Fluent Validation' ensuring all request parameters are thoroughly validated before invoking the API, guaranteeing data integrity and reliability.
 
 ## Features:
