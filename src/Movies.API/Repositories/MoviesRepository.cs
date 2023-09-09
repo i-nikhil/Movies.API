@@ -69,15 +69,6 @@ public class MoviesRepository : IMoviesRepository
 
     public Task<List<string>> GroupMoviesByGenreId(int id)
     {
-        //Query Syntax
-        /*var movies = from m in context.Movies
-                     join mg in context.MovieGenreMappings
-                     on m.Id equals mg.MovieId
-                     where mg.GenreId == id && m.DeletedAt == null
-                     select m.Title;
-        */
-
-        //Method Syntax
         var movies = context.Movies
             .Where(m => m.DeletedAt == null)
             .Join(context.MovieGenreMappings.Where(mg => mg.GenreId == id), m => m.Id, mg => mg.MovieId, (m, mg) => m.Title);
@@ -133,8 +124,8 @@ public class MoviesRepository : IMoviesRepository
             throw new MovieNotFoundException($"The movie with id {movieRequestDto.Id} does not exist!");
         }
 
-        if ((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks != movieRequestDto.Timestamp)
-            || (movie.UpdatedAt is null && movie.CreatedAt.Ticks != movieRequestDto.Timestamp))
+        if ((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks / 1000000 != movieRequestDto.Timestamp / 1000000)
+            || (movie.UpdatedAt is null && movie.CreatedAt.Ticks / 1000000 != movieRequestDto.Timestamp / 1000000))
         {
             throw new TimestampMismatchException("Timestamp does not match existing Movie's timestamp");
         }
