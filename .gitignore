@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+*.vsidx
+/.vs/Movies/v17/TestStore/0/000.testlog
+/tests/Movies.Tests/obj/Debug/net6.0/Movies.UnitTest.csproj.AssemblyReference.cache
+/src/Movies.API/bin/Debug/net6.0/Microsoft.IdentityModel.Tokens.dll
+/src/Movies.API/bin/Debug/net6.0/Movies.API.deps.json
+/src/Movies.API/bin/Debug/net6.0/Microsoft.IdentityModel.Protocols.dll
+/.vs/Movies/v17/.suo
+*.dll
+*.pdb
+*.cache
+*.txt
+*.json
