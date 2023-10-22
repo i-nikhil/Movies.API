@@ -1,4 +1,5 @@
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Movies.API;
 using Movies.API.Middlewares;
@@ -6,6 +7,7 @@ using Movies.API.Repositories;
 using Movies.API.Repositories.Interfaces;
 using Movies.API.Services;
 using Movies.API.Services.Interfaces;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +20,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<Program>(ServiceLifetime.Tr
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
-//builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+builder.Services.AddFluentValidation(x => x.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
