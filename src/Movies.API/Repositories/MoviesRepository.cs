@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 using Movies.API.DTOs;
 using Movies.API.Entities;
 using Movies.API.Exceptions;
@@ -82,11 +83,11 @@ public class MoviesRepository : IMoviesRepository
 
     public async Task<Movie> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
-        Movie duplicateRecord = await context.Movies.Where(m => m.Title == movieRequestDto.Title && m.DeletedAt == null).FirstOrDefaultAsync();
+        Movie duplicateRecord = await context.Movies.Where(m => m.Title.ToLower() == movieRequestDto.Title.ToLower() && m.DeletedAt == null).FirstOrDefaultAsync();
 
         if (duplicateRecord is not null)
         {
-            throw new DuplicateMovieException($"A movie with the name '{duplicateRecord.Title}' already exists with an id {duplicateRecord.Id}. You can either update this existing entry, or delete and recreate it.");
+            throw new DuplicateMovieException($"A movie with the name '{duplicateRecord.Title}' already exists with an id {duplicateRecord.Id}. You can either update that existing entry, or delete that and recreate this.");
         }
 
         foreach (int gid in movieRequestDto.GenreIds)
@@ -129,6 +130,13 @@ public class MoviesRepository : IMoviesRepository
         if (movie is null)
         {
             throw new MovieNotFoundException($"The movie with id {movieRequestDto.Id} does not exist!");
+        }
+
+        Movie duplicateRecord = await context.Movies.Where(m => m.Title.ToLower() == movieRequestDto.Title.ToLower() && m.Id != movieRequestDto.Id && m.DeletedAt == null).FirstOrDefaultAsync();
+
+        if (duplicateRecord is not null)
+        {
+            throw new DuplicateMovieException($"A movie with the name '{duplicateRecord.Title}' already exists with an id {duplicateRecord.Id}. You can either update that existing entry, or delete that and reupdate this.");
         }
 
         if ((movie.UpdatedAt is not null && movie.UpdatedAt.Value.Ticks / 1000000 != movieRequestDto.Timestamp / 1000000)
@@ -190,6 +198,13 @@ public class MoviesRepository : IMoviesRepository
         if (movie is null)
         {
             throw new MovieNotFoundException($"The movie with id {id} is not deleted!");
+        }
+
+        Movie duplicateRecord = await context.Movies.Where(m => m.Title.ToLower() == movie.Title.ToLower() && m.DeletedAt == null).FirstOrDefaultAsync();
+
+        if (duplicateRecord is not null)
+        {
+            throw new DuplicateMovieException($"A movie with the name '{duplicateRecord.Title}' already exists with an id {duplicateRecord.Id}. You can either update that existing entry, or delete that and retry restoring this.");
         }
 
         movie.DeletedAt = null;
