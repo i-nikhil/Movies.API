@@ -69,7 +69,7 @@ public class MoviesRepository : IMoviesRepository
 
     public Task<List<string>> GroupMoviesByGenreId(int id)
     {
-        var movies = context.Movies
+        IQueryable<string> movies = context.Movies
             .Where(m => m.DeletedAt == null)
             .Join(context.MovieGenreMappings.Where(mg => mg.GenreId == id), m => m.Id, mg => mg.MovieId, (m, mg) => m.Title);
 
@@ -82,6 +82,13 @@ public class MoviesRepository : IMoviesRepository
 
     public async Task<Movie> PostMovie(CreateMovieRequestDto movieRequestDto)
     {
+        Movie duplicateRecord = await context.Movies.Where(m => m.Title == movieRequestDto.Title && m.DeletedAt == null).FirstOrDefaultAsync();
+
+        if (duplicateRecord is not null)
+        {
+            throw new DuplicateMovieException($"A movie with the name '{duplicateRecord.Title}' already exists with an id {duplicateRecord.Id}. You can either update this existing entry, or delete and recreate it.");
+        }
+
         foreach (int gid in movieRequestDto.GenreIds)
         {
             if (await context.Genres.FirstOrDefaultAsync(g => g.Id == gid && g.DeletedAt == null) is null)

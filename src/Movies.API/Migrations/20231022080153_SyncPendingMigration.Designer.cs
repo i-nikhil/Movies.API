@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Movies.API;
 
@@ -11,9 +12,10 @@ using Movies.API;
 namespace Movies.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022080153_SyncPendingMigration")]
+    partial class SyncPendingMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,61 +57,61 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5138),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6346),
                             Name = "Comedy"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5141),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6352),
                             Name = "Drama"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5143),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6354),
                             Name = "Thriller"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5144),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6355),
                             Name = "Horror"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5146),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6357),
                             Name = "Action"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5147),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6359),
                             Name = "Retro"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5149),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6360),
                             Name = "Crime"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5150),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6361),
                             Name = "Biopic"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5152),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6363),
                             Name = "Fiction"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5153),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6364),
                             Name = "Romance"
                         });
                 });
@@ -149,7 +151,7 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5157),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6367),
                             ReleaseYear = 2012,
                             RuntimeMinutes = 143,
                             Title = "Avengers"
@@ -157,7 +159,7 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5160),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6371),
                             ReleaseYear = 2003,
                             RuntimeMinutes = 143,
                             Title = "Pirates of the Caribbean"
@@ -165,7 +167,7 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5162),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6373),
                             ReleaseYear = 2022,
                             RuntimeMinutes = 148,
                             Title = "Spider-Man: No way home"
@@ -173,7 +175,7 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5166),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6375),
                             ReleaseYear = 2021,
                             RuntimeMinutes = 148,
                             Title = "The Matrix Resurrections"
@@ -181,7 +183,7 @@ namespace Movies.API.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedAt = new DateTime(2023, 10, 22, 8, 6, 17, 954, DateTimeKind.Utc).AddTicks(5168),
+                            CreatedAt = new DateTime(2023, 10, 22, 8, 1, 52, 838, DateTimeKind.Utc).AddTicks(6377),
                             ReleaseYear = 2013,
                             RuntimeMinutes = 112,
                             Title = "The Conjuring"

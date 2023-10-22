@@ -22,7 +22,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer("name=DefaultConnection");
+    options.UseSqlServer("name=AzureConnection");
 });
 builder.Services.AddScoped<IGenresService, GenresService>();
 builder.Services.AddScoped<IGenresRepository, GenresRepository>();

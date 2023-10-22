@@ -3,6 +3,8 @@ using Movies.API.Entities;
 using Movies.API.Exceptions;
 using Movies.API.Repositories.Interfaces;
 using Movies.API.Services.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using System.Xml.Linq;
 
 namespace Movies.API.Services;
 

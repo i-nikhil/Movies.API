@@ -33,6 +33,7 @@ public class UnhandledExceptionMiddleware
                         Detail = ex.Message
                     };
                     break;
+                case DuplicateMovieException:
                 case InvalidPageNumberException:
                 case InvalidPageLimitException:
                 case InvalidMovieIdException:
