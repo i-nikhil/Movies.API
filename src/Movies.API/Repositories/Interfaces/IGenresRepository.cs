@@ -8,6 +8,4 @@ public interface IGenresRepository
     Task<Genre> GetGenreById(int id);
     Task<List<Genre>> SearchGenreByName(string term);
     Task<List<Genre>> GetAllGenreTimestamps();
-    Task<Genre> DeleteGenreById(int id);
-    Task<Genre> RestoreGenreById(int id);
 }

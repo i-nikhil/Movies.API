@@ -1,0 +1,311 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Movies.API</name>
+    </assembly>
+    <members>
+        <member name="T:Movies.API.Controllers.GenresController">
+            <summary>
+            The Genre Controller empowers users to seamlessly explore, find, and access movie genres in your application. It facilitates actions like accessing the full genre list, searching for genres by name, and delving into specific genre details, making it a crucial component for genre-related interactions.
+            </summary>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.#ctor(Movies.API.Services.Interfaces.IGenresService,AutoMapper.IMapper)">
+            <summary>
+            Parameterized constructor of GenresController.
+            </summary>
+            <param name="genreService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetAllGenre">
+            <summary>
+            Retrieves the list of all genres along with their respective IDs.
+            </summary>
+            <returns>List of all genres.</returns>
+            <response code="200">JSON response having list of all genres.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetGenreById(System.Int32)">
+            <summary>
+            Retrieves a specific genre by its unique ID.
+            </summary>
+            <param name="id">Unique ID of the genre.</param>
+            <returns>Specific genre details.</returns>
+            <response code="200">JSON response having specific genre details.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.SearchGenreByName(System.String)">
+            <summary>
+            Searches genres matching by its name.
+            </summary>
+            <param name="term">Keyword based on which genre needs to be searched.</param>
+            <returns>List of matching genres.</returns>
+            <response code="200">JSON response having list of matching genres.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetAllGenreTimestamps">
+            <summary>
+            Internal endpoint to get the created, updated and deleted timestamps for each genre.
+            </summary>
+            <returns>Timestamp detials for all genres.</returns>
+            <response code="200">JSON response having timestamp detials for all genres.</response>
+        </member>
+        <member name="T:Movies.API.Controllers.MoviesController">
+            <summary>
+            The Movies Controller manages movie-related actions in a web app, including getting movie details, searching by name, categorizing by genre, deleting, and restoring movies.It interfaces with the movie database for seamless operation.
+            </summary>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.#ctor(Movies.API.Services.Interfaces.IMoviesService,AutoMapper.IMapper)">
+            <summary>
+            Parameterized constructor of GenresController.
+            </summary>
+            <param name="movieService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.GetAllMovie(System.Int32,System.Int32,Movies.API.Entities.SortColumn,Movies.API.Entities.SortDirection)">
+            <summary>
+            Retrieves the paginated list of archived movies along with their details.
+            </summary>
+            <param name="page">Page number of the movie list.</param>
+            <param name="limit">Number of movies to be listed per page.</param>
+            <param name="sortColumn">Field based on which movies needs to be sorted. Possible values: 0 - Title, 1 - Release Year, 2 - Runtime Minutes.</param>
+            <param name="sortDirection">Sorting order of the field selected. Possible values: 0 - Ascending, 1 - Descending.</param>
+            <returns>List of movies in a paginated order.</returns>
+            <response code="200">JSON response having list of movies in a paginated order.</response>
+            <exception cref="T:Movies.API.Exceptions.InvalidPageLimitException"></exception>
+            <exception cref="T:Movies.API.Exceptions.InvalidPageNumberException"></exception>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.GetMovieById(System.Int32)">
+            <summary>
+            Retrieves a specific movie by its unique ID.
+            </summary>
+            <param name="id">Unique ID of the movie.</param>
+            <returns>Specific movie details.</returns>
+            <response code="200">JSON response having specific movie details.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.SearchMovieByName(System.String)">
+            <summary>
+            Searches movies matching by its name.
+            </summary>
+            <param name="term">Keyword based on which movie needs to be searched.</param>
+            <returns>List of matching movies.</returns>
+            <response code="200">JSON response having list of matching movies.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.GroupMoviesByGenreId(System.Int32)">
+            <summary>
+            Groups the names of movie based on a specific genre.
+            </summary>
+            <param name="id">Unique ID of the genre. Tip: Hit the get all genres endpoint to find the id of a specific genre.</param>
+            <returns>Mmovies grouped by specific genre.</returns>
+            <response code="200">JSON response having movies grouped by specific genre.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.PostMovie(Movies.API.DTOs.CreateMovieRequestDto)">
+            <summary>
+            Archives a movie related details in the database.
+            </summary>
+            <param name="movieRequestDto">JSON request body having details for the movie to be archived.</param>
+            <returns>Created movie details along with its new ID and created timestamp.</returns>
+            <response code="200">JSON response having created movie details along with its new ID and created timestamp.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.UpdateMovie(Movies.API.DTOs.UpdateMovieRequestDto)">
+            <summary>
+            Modify and update details for an archived movie.
+            </summary>
+            <param name="movieRequestDto">JSON request body having details for the movie to be updated.</param>
+            <returns>Updated movie details along with its ID and updated timestamp.</returns>
+            <response code="200">JSON response having updated movie details along with its ID and updated timestamp.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.DeleteMovieById(System.Int32)">
+            <summary>
+            Soft deletes a movie details from the database by its unique ID.
+            </summary>
+            <param name="id">Unique ID of the movie.</param>
+            <returns>Message asserting successful deletion.</returns>
+            <response code="200">String message asserting successful deletion.</response>
+        </member>
+        <member name="M:Movies.API.Controllers.MoviesController.RestoreMovieById(System.Int32)">
+            <summary>
+            Restores the soft deleted movie details from the database by its unique ID.
+            </summary>
+            <param name="id">Unique ID of the movie.</param>
+            <returns>Message asserting successful restoration.</returns>
+            <response code="200">String message asserting successful restoration.</response>
+        </member>
+        <member name="T:Movies.API.DTOs.CreateMovieRequestDto">
+            <summary>
+            JSON request body having details for movie to be archived.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.CreateMovieRequestDto.Title">
+            <summary>
+            Name of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.CreateMovieRequestDto.ReleaseYear">
+            <summary>
+            Year of release of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.CreateMovieRequestDto.RuntimeMinutes">
+            <summary>
+            Duration of the movie in minutes.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.CreateMovieRequestDto.GenreIds">
+            <summary>
+            List of genre IDs to be mapped with this movie.
+            </summary>
+        </member>
+        <member name="T:Movies.API.DTOs.UpdateMovieRequestDto">
+            <summary>
+            JSON request body having details for movie to be updated.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.Id">
+            <summary>
+            Unique ID of the movie generated during archive request.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.Title">
+            <summary>
+            Name of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.ReleaseYear">
+            <summary>
+            Year of release of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.RuntimeMinutes">
+            <summary>
+            Duration of the movie in minutes.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.GenreIds">
+            <summary>
+            List of genre IDs to be mapped with this movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.DTOs.UpdateMovieRequestDto.Timestamp">
+            <summary>
+            Latest timestamp of the changes made.
+            </summary>
+        </member>
+        <member name="T:Movies.API.Entities.Genre">
+            <summary>
+            Genre entity model.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.Id">
+            <summary>
+            Unique ID of the genre.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.Name">
+            <summary>
+            Name of the genre.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.CreatedAt">
+            <summary>
+            Genre created timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.UpdatedAt">
+            <summary>
+            Genre updated timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.DeletedAt">
+            <summary>
+            Genre deleted timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Genre.Movies">
+            <summary>
+            Collection of movies categorized under this genre.
+            </summary>
+        </member>
+        <member name="T:Movies.API.Entities.GenreName">
+            <summary>
+            Genre names.
+            </summary>
+        </member>
+        <member name="T:Movies.API.Entities.Movie">
+            <summary>
+            Movie entity model.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.Id">
+            <summary>
+            Unique ID of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.Title">
+            <summary>
+            Name of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.ReleaseYear">
+            <summary>
+            Year of release of the movie.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.RuntimeMinutes">
+            <summary>
+            Duration of the movie in minutes.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.CreatedAt">
+            <summary>
+            Movie archived timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.UpdatedAt">
+            <summary>
+            Movie updated timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.DeletedAt">
+            <summary>
+            Movie deleted timestamp.
+            </summary>
+        </member>
+        <member name="P:Movies.API.Entities.Movie.Genres">
+            <summary>
+            Collection of genres mapped with this movie.
+            </summary>
+        </member>
+        <member name="T:Movies.API.Entities.SortColumn">
+            <summary>
+            Field based on which movies needs to be sorted.
+            </summary>
+        </member>
+        <member name="F:Movies.API.Entities.SortColumn.Title">
+            <summary>
+            Name of the movie.
+            </summary>
+        </member>
+        <member name="F:Movies.API.Entities.SortColumn.ReleaseYear">
+            <summary>
+            Year of release of the movie.
+            </summary>
+        </member>
+        <member name="F:Movies.API.Entities.SortColumn.RuntimeMinutes">
+            <summary>
+            Duration of the movie in minutes.
+            </summary>
+        </member>
+        <member name="T:Movies.API.Entities.SortDirection">
+            <summary>
+            Sorting order of the field selected.
+            </summary>
+        </member>
+        <member name="F:Movies.API.Entities.SortDirection.Asc">
+            <summary>
+            Ascending order.
+            </summary>
+        </member>
+        <member name="F:Movies.API.Entities.SortDirection.Desc">
+            <summary>
+            Descending order.
+            </summary>
+        </member>
+    </members>
+</doc>

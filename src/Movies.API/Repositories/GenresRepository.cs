@@ -38,36 +38,5 @@ namespace Movies.API.Repositories
             return await context.Genres
                 .ToListAsync();
         }
-
-        public async Task<Genre> DeleteGenreById(int id)
-        {
-            Genre genre = await GetGenreById(id);
-
-            if (genre is null)
-            {
-                throw new GenreNotFoundException($"Genre with id {id} does not exist!");
-            }
-
-            genre.DeletedAt = DateTime.UtcNow;
-            genre.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync();
-            return genre;
-        }
-
-        public async Task<Genre> RestoreGenreById(int id)
-        {
-            Genre genre = await context.Genres
-                .FirstOrDefaultAsync(g => g.Id == id && g.DeletedAt != null);
-
-            if (genre is null)
-            {
-                throw new GenreNotFoundException($"Genre with id {id} is not deleted!");
-            }
-
-            genre.DeletedAt = null;
-            genre.UpdatedAt = DateTime.UtcNow;
-            await context.SaveChangesAsync();
-            return genre;
-        }
     }
 }

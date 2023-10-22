@@ -61,24 +61,4 @@ public class GenresService : IGenresService
     {
         return await genreRepository.GetAllGenreTimestamps();
     }
-
-    public async Task<Genre> DeleteGenreById(int id)
-    {
-        if (id <= 0)
-        {
-            throw new InvalidGenreIdException("Invalid Genre Id");
-        }
-
-        return await genreRepository.DeleteGenreById(id);
-    }
-
-    public async Task<Genre> RestoreGenreById(int id)
-    {
-        if (id <= 0)
-        {
-            throw new InvalidGenreIdException("Invalid Genre Id");
-        }
-
-        return await genreRepository.RestoreGenreById(id);
-    }
 }

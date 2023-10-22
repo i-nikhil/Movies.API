@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Movies.API</name>
+    </assembly>
+    <members>
+        <member name="M:Movies.API.Controllers.GenresController.#ctor(Movies.API.Services.Interfaces.IGenresService,AutoMapper.IMapper)">
+            <summary>
+            
+            </summary>
+            <param name="genreService"></param>
+            <param name="mapper"></param>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetAllGenre">
+            <summary>
+            Retrieves the list of genres along with their respective IDs.
+            </summary>
+            <returns>JSON response having list of all genres.</returns>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetGenreById(System.Int32)">
+            <summary>
+            Retrieves a specific genre by its unique ID.
+            </summary>
+            <param name="id">Unique ID of the genre.</param>
+            <returns>JSON response having specific genre details.</returns>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.SearchGenreByName(System.String)">
+            <summary>
+            Searches genres matching by its name.
+            </summary>
+            <param name="term">Keyword based on genre to be searched.</param>
+            <returns>JSON response having list of matching genres.</returns>
+        </member>
+        <member name="M:Movies.API.Controllers.GenresController.GetAllGenreTimestamps">
+            <summary>
+            Internal endpoint to get the created, updated and deleted timestamps for each genre.
+            </summary>
+            <returns>JSON response having timestamp detials for all genres.</returns>
+        </member>
+    </members>
+</doc>

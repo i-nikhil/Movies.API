@@ -79,33 +79,5 @@ namespace Movies.UnitTest.System.Controllers
             result.Should().NotBeNull();
             result.Should().BeOfType<OkObjectResult>();
         }
-
-        [Fact]
-        public async Task DeleteGenreById_ReturnsOK()
-        {
-            //Arrange
-            mockGenresService.Setup(mgs => mgs.DeleteGenreById(1)).ReturnsAsync(GenresMockData.GetGenres().FirstOrDefault());
-
-            //Act
-            IActionResult result = await sut.DeleteGenreById(1).ConfigureAwait(false);
-
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType<OkObjectResult>();
-        }
-
-        [Fact]
-        public async Task RestoreGenreById_ReturnsOK()
-        {
-            //Arrange
-            mockGenresService.Setup(mgs => mgs.RestoreGenreById(1)).ReturnsAsync(GenresMockData.GetGenres().FirstOrDefault());
-
-            //Act
-            IActionResult result = await sut.RestoreGenreById(1).ConfigureAwait(false);
-
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType<OkObjectResult>();
-        }
     }
 }
