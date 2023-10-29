@@ -5,12 +5,15 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	  <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	  <ApplicationInsightsResourceId>/subscriptions/3799bd5f-0fcb-4f75-b385-a70f9061894a/resourceGroups/cloud-shell-storage-centralindia/providers/microsoft.insights/components/MoviesAPI</ApplicationInsightsResourceId>
+	  <UserSecretsId>a069301d-e3d8-47d1-946f-a8a729ed33ca</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation" Version="11.4.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
+    <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">

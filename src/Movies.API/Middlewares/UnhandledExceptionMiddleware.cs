@@ -57,7 +57,6 @@ public class UnhandledExceptionMiddleware
                     };
                     break;
             }
-
             context.Response.ContentType = "application/json";
             await context.Response.WriteAsync(JsonSerializer.Serialize(details));
         }
