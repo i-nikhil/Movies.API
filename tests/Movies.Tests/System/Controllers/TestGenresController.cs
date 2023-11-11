@@ -1,7 +1,6 @@
 ﻿using Moq;
 using Movies.API.Controllers;
 using Movies.API.Services.Interfaces;
-using Movies.UnitTest.MockData;
 using Xunit;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +27,7 @@ namespace Movies.UnitTest.System.Controllers
         public async Task GetAllGenre_ReturnsOK()
         {
             //Arrange
-            mockGenresService.Setup(mgs => mgs.GetAllGenre()).ReturnsAsync(GenresMockData.GetGenres());
+            mockGenresService.Setup(mgs => mgs.GetAllGenre()).ReturnsAsync(new List<Genre>());
 
             //Act
             IActionResult result = await sut.GetAllGenre().ConfigureAwait(false);
@@ -42,7 +41,7 @@ namespace Movies.UnitTest.System.Controllers
         public async Task GetGenreById_ReturnsOK()
         {
             //Arrange
-            mockGenresService.Setup(mgs => mgs.GetGenreById(1)).ReturnsAsync(GenresMockData.GetGenres().FirstOrDefault());
+            mockGenresService.Setup(mgs => mgs.GetGenreById(1)).ReturnsAsync(new Genre());
 
             //Act
             IActionResult result = await sut.GetGenreById(1).ConfigureAwait(false);
@@ -56,7 +55,7 @@ namespace Movies.UnitTest.System.Controllers
         public async Task SearchGenreByName_ReturnsOK()
         {
             //Arrange
-            mockGenresService.Setup(mgs => mgs.SearchGenreByName(GenreName.Comedy.GetDisplayName())).ReturnsAsync(GenresMockData.GetGenres());
+            mockGenresService.Setup(mgs => mgs.SearchGenreByName(GenreName.Comedy.GetDisplayName())).ReturnsAsync(new List<Genre>());
 
             //Act
             IActionResult result = await sut.SearchGenreByName(GenreName.Comedy.GetDisplayName()).ConfigureAwait(false);
@@ -70,7 +69,7 @@ namespace Movies.UnitTest.System.Controllers
         public async Task GetAllGenreTimestamps_ReturnsOK()
         {
             //Arrange
-            mockGenresService.Setup(mgs => mgs.GetAllGenreTimestamps()).ReturnsAsync(GenresMockData.GetGenres());
+            mockGenresService.Setup(mgs => mgs.GetAllGenreTimestamps()).ReturnsAsync(new List<Genre>());
 
             //Act
             IActionResult result = await sut.GetAllGenreTimestamps().ConfigureAwait(false);
