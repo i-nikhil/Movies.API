@@ -3,7 +3,7 @@ An Entity Framework Core 6 Project
 
 Welcome to Movies.API, a handcrafted backend application built on the robust foundation of .NET 6, Entity Framework Core, REST API, SQL Server, and Swagger Documentation.
 
-![1699101719283](https://github.com/i-nikhil/Movies.API/assets/66352372/1210e006-ef28-4764-b2ba-9235001217d6)
+![image](https://github.com/i-nikhil/Movies.API/assets/66352372/18a2b906-bb87-479d-a386-53c739bd3ce4)
 
 Let's dive into the features and functionalities:
 
